@@ -47,7 +47,6 @@ const loadBans = async (client, bans) => {
 	for (let i = 0; i < bans.length; i++) {
 		let { guildId, userId, endTime } = bans[i]
 		schedule.scheduleJob(`${guildId} - ${userId}`, endTime, async () => {
-			console.log(bans[i])
 			deleteBan(client, userId, guildId)
 		})
 	}
