@@ -4,11 +4,9 @@ const { readdirSync } = require('fs')
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
 const client = new Client({
 	intents: [
-		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildModeration,
 		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.GuildMessageReactions
+		GatewayIntentBits.MessageContent
 	],
 	presence: {
 		status: 'online',

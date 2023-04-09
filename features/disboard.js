@@ -1,4 +1,4 @@
-const { Client } = require('discord.js')
+const { Client, Events } = require('discord.js')
 const schedule = require('node-schedule')
 const disboardSchema = require('../schemas/disboard-schema')
 const bumpsSchema = require('../schemas/bumps-schema')
@@ -66,7 +66,7 @@ module.exports = async (client) => {
 		await loadBumps(client, bumps)
 	})
 
-	client.on('messageCreate', async (message) => {
+	client.on(Events.MessageCreate, async (message) => {
 		const { guild, embeds, author } = message
 
 		const cache = disboardCache[guild.id]
