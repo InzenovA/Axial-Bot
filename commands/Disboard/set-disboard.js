@@ -1,6 +1,6 @@
 const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild } = require('discord.js')
 const disboardSchema = require('../../schemas/disboard-schema')
-const { fetchDisboardChannels } = require('../../features/disboard')
+const { fetchDisboardChannels } = require('../../modules/disboard')
 
 module.exports = {
 	name: 'set-disboard',

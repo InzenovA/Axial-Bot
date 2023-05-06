@@ -1,7 +1,7 @@
 const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild, GuildMember, EmbedBuilder } = require('discord.js')
 
 const modlogsSchema = require('../../schemas/modlogs-schema')
-const { moderatorCheck } = require('../../features/moderation')
+const { moderatorCheck } = require('../../modules/moderation')
 const time = require('../../functions/time')
 
 module.exports = {

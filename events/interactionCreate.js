@@ -35,11 +35,8 @@ module.exports = {
 			const targetMember = interaction.targetMember ? interaction.targetMember : null
 			const targetUser = interaction.targetUser ? interaction.targetUser : null
 
-			try {
-				await command.callback({ client, interaction, guild, channel, member, user, targetMessage, targetMember, targetUser })
-			} catch (err) {
-				console.log(err)
-			}
+			await command.callback({ client, interaction, guild, channel, member, user, targetMessage, targetMember, targetUser })
+
 		} catch (err) {
 			console.error(err)
 			interaction.reply({

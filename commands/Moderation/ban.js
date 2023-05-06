@@ -2,7 +2,7 @@ const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInter
 
 const modlogsSchema = require('../../schemas/modlogs-schema')
 const banSchema = require('../../schemas/bans-schema')
-const { moderatorCheck, loadBans } = require('../../features/moderation')
+const { moderatorCheck, loadBans } = require('../../modules/moderation')
 const time = require('../../functions/time')
 
 module.exports = {

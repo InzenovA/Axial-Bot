@@ -1,5 +1,5 @@
 const { PermissionsBitField, ChatInputCommandInteraction, GuildMember } = require('discord.js')
-const { deleteCache } = require('../../features/disboard')
+const { deleteCache } = require('../../modules/disboard')
 
 module.exports = {
 	name: 'disable-disboard',

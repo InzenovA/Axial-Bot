@@ -7,7 +7,6 @@ const { readdirSync } = require('fs')
  */
 module.exports = async (client) => {
 	client.commands.clear()
-
 	commandsArray = []
 	guildCommandsArray = []
 

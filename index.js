@@ -1,9 +1,10 @@
 require('dotenv').config()
 const { readdirSync } = require('fs')
 
-const { Client, GatewayIntentBits, Collection } = require('discord.js')
+const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js')
 const client = new Client({
 	intents: [
+		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.MessageContent
@@ -11,9 +12,9 @@ const client = new Client({
 	presence: {
 		status: 'online',
 		afk: false,
-		activity: {
+		activity:  {
 			name: `/help`,
-			type: 'PLAYING'
+			type: ActivityType.Playing
 		}
 	}
 })
