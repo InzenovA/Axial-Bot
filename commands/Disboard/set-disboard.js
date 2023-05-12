@@ -1,20 +1,21 @@
-const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild } = require('discord.js')
-const disboardSchema = require('../../schemas/disboard-schema')
-const { fetchDisboardChannels } = require('../../modules/disboard')
+const {
+	PermissionsBitField,
+	ApplicationCommandOptionType,
+	ChatInputCommandInteraction,
+	ActionRowBuilder,
+	ModalBuilder,
+	TextInputBuilder,
+	TextInputStyle,
+} = require('discord.js')
 
 module.exports = {
 	name: 'set-disboard',
 	description: 'Sets the Disboard channel to be the specified channel.',
 	category: 'Disboard',
-	expectedArgs: '<message> [channel]',
+	expectedArgs: '[channel]',
 	defaultMemberPermissions: PermissionsBitField.Flags.ManageGuild,
 	dmPermission: false,
 	options: [{
-		name: 'message',
-		description: 'The text you want the bot to send',
-		type: ApplicationCommandOptionType.String,
-		required: true
-	}, {
 		name: 'channel',
 		description: 'The optional channel you want to send to',
 		type: ApplicationCommandOptionType.Channel,
@@ -25,31 +26,26 @@ module.exports = {
 	 * 
 	 * @param {{
 	 * 	interaction: ChatInputCommandInteraction,
-	 * 	guild: Guild,
 	 * 	channel: any
 	 * }}
 	 */
-	callback: async ({ interaction, guild, channel }) => {		
+	callback: async ({ interaction, channel }) => {
 		const targetChannel = interaction.options.getChannel('channel') || channel
-		const text = interaction.options.getString('message')
-		
-		const { id: _id } = guild
-		const { id: channelId } = targetChannel
 
-		await disboardSchema.findOneAndUpdate({
-			_id
-		}, {
-			_id,
-			channelId,
-			content: text
-		}, {
-			upsert: true
-		})
+		const modal = new ModalBuilder()
+			.setTitle('Set Disboard Reminder Message')
+			.setCustomId(`set-disboard ${targetChannel.id}`)
 
-		fetchDisboardChannels(_id).then(() => {
-			interaction.reply({ content: `The Disboard reminder channel has been bound to <#${targetChannel.id}>.
-				**NOTE:** The new message and channel location will take effect in the next bump.`,
-			})
-		})
+		const text = new TextInputBuilder()
+			.setLabel('Message')
+			.setPlaceholder('Input the reminder message to be sent')
+			.setCustomId('set-disboard-message')
+			.setStyle(TextInputStyle.Paragraph)
+			.setRequired(true)
+
+		const actionRow = new ActionRowBuilder().addComponents(text)
+		modal.addComponents(actionRow)
+
+		await interaction.showModal(modal)
 	}
 }

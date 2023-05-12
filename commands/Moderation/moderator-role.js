@@ -5,7 +5,7 @@ module.exports = {
 	name: 'moderator-role',
 	description: 'Set roles that prevent members with the roles from being moderated.',
 	category: 'Moderation',
-	expectedArgs: '<add/remove/list> [role]',
+	expectedArgs: '<add/remove/list> <role>',
 	defaultMemberPermissions: PermissionsBitField.Flags.ManageGuild,
 	dm_permission: false,
 	options: [{

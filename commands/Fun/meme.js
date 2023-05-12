@@ -13,8 +13,9 @@ const subreddits = [
 
 module.exports = {
 	name: 'meme',
-	description: 'Posts a random meme from reddit.',
+	description: 'Posts a random meme from a random or specific reddit.',
 	category: 'Fun',
+	expectedArgs: '[subreddit]',
 	options: [{
 		name: 'subreddit',
 		description: 'The subreddit you want the memes from',

@@ -9,9 +9,7 @@ module.exports = {
 	 * @param {Client} client 
 	 */
 	async execute(interaction, client) {
-		if (!(interaction.isChatInputCommand() || interaction.isContextMenuCommand())) {
-			console.log(`An interaction of type ${interaction.type} was attempted to be executed.`)
-		}
+		if (!(interaction.isChatInputCommand() || interaction.isContextMenuCommand() )) return
 		const command = client.commands.get(interaction.commandName)
 
 		if (!command) {
@@ -35,7 +33,7 @@ module.exports = {
 			const targetMember = interaction.targetMember ? interaction.targetMember : null
 			const targetUser = interaction.targetUser ? interaction.targetUser : null
 
-			await command.callback({ client, interaction, guild, channel, member, user, targetMessage, targetMember, targetUser })
+			await command.callback({ interaction, guild, channel, member, user, targetMessage, targetMember, targetUser, client })
 
 		} catch (err) {
 			console.error(err)

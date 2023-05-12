@@ -5,7 +5,7 @@ module.exports = {
 	name: 'slowmode',
 	description: 'Set a slowmode for a channel.',
 	category: 'Utility',
-	expectedArgs: '<time> [channel]',
+	expectedArgs: '<time> [channel] [reason]',
 	defaultMemberPermissions: PermissionsBitField.Flags.ManageChannels,
 	dm_permission: false,
 	options: [{
@@ -19,6 +19,11 @@ module.exports = {
 		type: ApplicationCommandOptionType.Channel,
 		channelTypes: [0],
 		required: false
+	}, {
+		name: 'reason',
+		description: 'Reason the slowmode was changed', 
+		type: ApplicationCommandOptionType.String,
+		required: false
 	}],
 	/**
 	 * 
@@ -30,6 +35,7 @@ module.exports = {
 	callback: ({ interaction, channel }) => {
 		const duration = interaction.options.getString('duration')
 		targetChannel = interaction.options.getChannel('channel')
+		reason = interaction.options.getString('reason')
 		
 		const length = time(duration) / 1000
 		if (length == null) return interaction.reply({ content: "Invalid time format." }) 
@@ -37,7 +43,7 @@ module.exports = {
 
 		if (!targetChannel) targetChannel = channel
 
-		targetChannel.setRateLimitPerUser(length).then(() => {
+		targetChannel.setRateLimitPerUser(length, reason).then(() => {
 			interaction.reply({ content: `Set the channel slowmode to **${duration}**.` }) 
 		})
 	}

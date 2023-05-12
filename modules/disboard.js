@@ -1,4 +1,4 @@
-const { Client, Events } = require('discord.js')
+const { Client, CommandInteraction, Events } = require('discord.js')
 const schedule = require('node-schedule')
 const disboardSchema = require('../schemas/disboard-schema')
 const bumpsSchema = require('../schemas/bumps-schema')
@@ -90,10 +90,33 @@ module.exports = async (client) => {
 			})
 		}
 	})
+
+	client.on(Events.InteractionCreate, async (interaction) => {
+		if (interaction.isModalSubmit() && interaction.customId.startsWith('set-disboard')) {
+			content = interaction.fields.getTextInputValue('set-disboard-message')
+
+			const { id: _id } = interaction.guild
+			const channelId = interaction.customId.split(" ")[1]
+
+			await disboardSchema.findOneAndUpdate({
+				_id
+			}, {
+				_id,
+				channelId,
+				content
+			}, {
+				upsert: true
+			})
+
+			fetchDisboardChannels(_id).then(async () => {
+				await interaction.reply({
+					content: `The Disboard reminder channel has been bound to <#${channelId}>.\n**NOTE:** The new message and channel location will take effect in the next bump.`
+				})
+			})
+		}	
+	})
 }
 
 module.exports.fetchDisboardChannels = fetchDisboardChannels
-
 module.exports.deleteCache = deleteCache
-
 module.exports.loadBumps = loadBumps

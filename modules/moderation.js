@@ -12,11 +12,8 @@ const moderatorCheck = async (target, guild) => {
 	const query = await roleSchema.findOne({ _id: guild.id })
 	guild.roles.fetch()
 
-	if (query ? target.roles.cache.hasAny(query.roleId) : false) {
-		return true
-	}
+	if (query ? target.roles.cache.hasAny(query.roleId) : false) return true
 	if (target.permissions.has(PermissionsBitField.Flags.BanMembers)) return true
-
 	return false
 }
 
@@ -71,7 +68,5 @@ module.exports = async (client) => {
 }
 
 module.exports.moderatorCheck = moderatorCheck
-
 module.exports.deleteBan = deleteBan
-
 module.exports.loadBans = loadBans

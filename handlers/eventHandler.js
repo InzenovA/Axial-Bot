@@ -6,8 +6,6 @@ const { readdirSync } = require('fs')
  * @param {Client} client 
  */
 module.exports = (client) => {
-	client.events.clear()
-
 	const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'))
 
 	for (const file of eventFiles) {

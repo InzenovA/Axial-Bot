@@ -20,7 +20,6 @@ const client = new Client({
 })
 
 client.commands = new Collection()
-client.events = new Collection()
 client.testGuilds = ['600750065786683392', '787294199090380840']
 
 const handlerFiles = readdirSync('./handlers').filter(file => file.endsWith('.js'))

@@ -25,7 +25,7 @@ module.exports = {
 			const avatarAuthor = new EmbedBuilder()
 				.setColor(0x000000)
 				.setTitle(targetMember.user.tag)
-				.setImage(targetMember.displayAvatarURL({ format: "png", dynamic: true, size: 4096 }))
+				.setImage(targetMember.displayAvatarURL({ extension: 'gif', forceStatic: false, size: 4096 }))
 
 			interaction.reply({
 				embeds: [avatarAuthor],
