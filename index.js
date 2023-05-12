@@ -1,5 +1,10 @@
 require('dotenv').config()
+const process = require('node:process')
 const { readdirSync } = require('fs')
+
+process.on('unhandledRejection', (reason, promise) => {
+	console.log(promise, reason)
+})
 
 const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js')
 const client = new Client({
