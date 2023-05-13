@@ -4,7 +4,7 @@ const calculate = require('../../functions/calculate')
 module.exports = {
 	name: 'math',
 	description: 'Does basic math calculations.',
-	category: 'fun',
+	category: 'Fun',
 	expectedArgs: '<num1> <operation> <num2>',
 	options: [{
 		name: 'num1',

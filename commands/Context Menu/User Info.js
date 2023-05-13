@@ -2,7 +2,7 @@ const { ApplicationCommandType, UserContextMenuCommandInteraction, GuildMember, 
 
 module.exports = {
 	name: 'User Info',
-	category: 'Misc',
+	category: 'Context Menu',
 	type: ApplicationCommandType.User,
 	dm_permission: false,
 	/**
