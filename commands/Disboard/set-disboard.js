@@ -14,6 +14,7 @@ module.exports = {
 	category: 'Disboard',
 	expectedArgs: '[channel]',
 	defaultMemberPermissions: PermissionsBitField.Flags.ManageGuild,
+	botPermissions: [PermissionsBitField.Flags.SendMessages],
 	dmPermission: false,
 	options: [{
 		name: 'channel',

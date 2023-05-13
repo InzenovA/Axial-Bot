@@ -9,6 +9,7 @@ module.exports = {
 	category: 'Moderation',
 	expectedArgs: '<user> [reason]',
 	defaultMemberPermissions: PermissionsBitField.Flags.KickMembers,
+	botPermissions: [PermissionsBitField.Flags.KickMembers],
 	dm_permission: false,
 	options: [{
 		name: 'user',

@@ -7,6 +7,7 @@ module.exports = {
 	category: 'Utility',
 	expectedArgs: '<time> [channel] [reason]',
 	defaultMemberPermissions: PermissionsBitField.Flags.ManageChannels,
+	botPermissions: [PermissionsBitField.Flags.ManageChannels],
 	dm_permission: false,
 	options: [{
 		name: 'duration',

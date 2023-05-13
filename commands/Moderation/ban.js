@@ -11,6 +11,7 @@ module.exports = {
 	category: 'Moderation',
 	expectedArgs: '<user> [duration] [delete_messages] [reason]',
 	defaultMemberPermissions: PermissionsBitField.Flags.BanMembers,
+	botPermissions: [PermissionsBitField.Flags.BanMembers],
 	dm_permission: false,
 	options: [{
 		name: 'user',

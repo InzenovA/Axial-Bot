@@ -1,4 +1,4 @@
-const { Events, CommandInteraction, Client, EmbedBuilder } = require('discord.js')
+const { Events, CommandInteraction, Client, EmbedBuilder, PermissionsBitField } = require('discord.js')
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -27,11 +27,23 @@ module.exports = {
 			const channel = interaction.channel
 			const member = interaction.member
 			const user = interaction.user
-			
+
 			// Context menu only data
 			const targetMessage = interaction.targetMessage ? interaction.targetMessage : null
 			const targetMember = interaction.targetMember ? interaction.targetMember : null
 			const targetUser = interaction.targetUser ? interaction.targetUser : null
+
+			const permissionsList = command.botPermissions || []
+			for (const permission of permissionsList) {
+				if (!guild.members.me.permissions.has(permission)) {
+					const textPermission = Object.keys(PermissionsBitField.Flags).find(key => PermissionsBitField.Flags[key] === permission)
+					return interaction.reply({
+						embeds: [new EmbedBuilder()
+							.setDescription(`❌ I do not have the permission \`${textPermission}\` required to run the command.`)
+						], ephemeral: true
+					})
+				}
+			}
 
 			await command.callback({ interaction, guild, channel, member, user, targetMessage, targetMember, targetUser, client })
 
