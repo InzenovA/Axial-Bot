@@ -16,6 +16,7 @@ const emojis = {
 	"Help": "❓",
 	"Misc": "📀",
 	"Moderation": "🔨",
+	"Starboard": "⭐",
 	"Utility": "🧰"
 }
 

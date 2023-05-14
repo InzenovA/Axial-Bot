@@ -6,19 +6,24 @@ process.on('unhandledRejection', (reason, promise) => {
 	console.log(promise, reason)
 })
 
-const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js')
+const { Client, GatewayIntentBits, Partials, PresenceUpdateStatus, ActivityType, Collection } = require('discord.js')
 const client = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessageReactions,
 		GatewayIntentBits.MessageContent
 	],
+	partials: [
+		Partials.Message,
+		Partials.Reaction
+	],
 	presence: {
-		status: 'online',
+		status: PresenceUpdateStatus.Online,
 		afk: false,
 		activity:  {
-			name: `/help`,
+			name: '/help',
 			type: ActivityType.Playing
 		}
 	}

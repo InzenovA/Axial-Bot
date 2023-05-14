@@ -36,7 +36,12 @@ module.exports = async (client) => {
 
 		await client.guilds.fetch()
 		for (const guild of client.testGuilds) {
-			client.guilds.cache.get(`${guild}`).commands.set(guildCommandsArray)
+			try {
+				client.guilds.cache.get(`${guild}`).commands.set(guildCommandsArray)
+			} catch (err) {
+				console.log(`Error while trying to push commands at guild "${guild}"`)
+				console.log(err)
+			}
 		}
 	})
 }

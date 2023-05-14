@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, Events } = require('discord.js')
+const { Client, Events } = require('discord.js')
 const schedule = require('node-schedule')
 const disboardSchema = require('../schemas/disboard-schema')
 const bumpsSchema = require('../schemas/bumps-schema')
