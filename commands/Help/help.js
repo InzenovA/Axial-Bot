@@ -58,6 +58,13 @@ module.exports = {
 			.setTitle("Axial-Bot Help Menu")
 			.setColor('Blue')
 
+		const getCommand = (name) => {
+			const commandId = client.application.commands.cache
+				.filter(command => command.name == name)
+				.map(command => command.id)
+			return commandId
+		}
+
 		let components = (disabled=false) => {
 			const actionRow = new ActionRowBuilder()
 				.addComponents(
@@ -97,6 +104,11 @@ module.exports = {
 			const buttons = new ActionRowBuilder().addComponents(startButton, previousButton, nextButton, endButton)
 
 			return [ actionRow, buttons ]
+		}
+
+		const createMenu = (filter="all") => {
+			filter == "all" ? commandList = client.commands : commandList = client.commands.filter(command => command.category == filter)
+			return commandList
 		}
 
 		interaction.editReply({
