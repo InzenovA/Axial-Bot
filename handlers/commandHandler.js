@@ -7,8 +7,8 @@ const { readdirSync } = require('fs')
  */
 module.exports = async (client) => {
 	client.commands.clear()
-	commandsArray = []
-	guildCommandsArray = []
+	let commandsArray = []
+	let guildCommandsArray = []
 
 	const commandFolders = readdirSync('./commands')
 	for (const folder of commandFolders) {
@@ -25,12 +25,23 @@ module.exports = async (client) => {
 		}
 	}
 
+	for (const command of client.commands) {
+		client.commandCategories[command[1].category]
+		? client.commandCategories[command[1].category].push(command[0])
+		: client.commandCategories[command[1].category] = [command[0]]
+	}
+
 	client.on(Events.ClientReady, async () => {
 		client.application.commands.set(commandsArray)
 
 		await client.guilds.fetch()
 		for (const guild of client.testGuilds) {
-			client.guilds.cache.get(`${guild}`).commands.set(guildCommandsArray)
+			try {
+				client.guilds.cache.get(`${guild}`).commands.set(guildCommandsArray)
+			} catch (err) {
+				console.log(`Error while trying to push commands at guild "${guild}"`)
+				console.log(err)
+			}
 		}
 	})
 }

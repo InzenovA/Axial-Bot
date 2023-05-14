@@ -38,7 +38,7 @@ module.exports = {
 				value: `<t:${parseInt(user.createdTimestamp / 1000 )}:F>`,
 				inline: true
 			}])
-			.setThumbnail(target.displayAvatarURL({ extension: 'gif', forceStatic: false, size: 4096 }))
+			.setThumbnail(target.displayAvatarURL({ size: 4096 }))
 			.setTimestamp()
 			.setColor(displayHexColor)
 		

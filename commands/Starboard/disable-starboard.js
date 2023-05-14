@@ -1,10 +1,10 @@
 const { PermissionsBitField, ChatInputCommandInteraction, Guild } = require('discord.js')
-const { deleteCache } = require('../../modules/disboard')
+const { deleteCache } = require('../../modules/starboard')
 
 module.exports = {
-	name: 'disable-disboard',
-	description: 'Disables the Disboard reminders in the guild.',
-	category: 'Disboard',
+	name: 'disable-starboard',
+	description: 'Disables starboard in the guild.',
+	category: 'Starboard',
 	defaultMemberPermissions: PermissionsBitField.Flags.ManageGuild,
 	dmPermission: false,
 	/**

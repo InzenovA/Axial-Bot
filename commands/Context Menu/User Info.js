@@ -2,7 +2,7 @@ const { ApplicationCommandType, UserContextMenuCommandInteraction, GuildMember, 
 
 module.exports = {
 	name: 'User Info',
-	category: 'Misc',
+	category: 'Context Menu',
 	type: ApplicationCommandType.User,
 	dm_permission: false,
 	/**
@@ -30,7 +30,7 @@ module.exports = {
 				value: `<t:${parseInt(user.createdTimestamp / 1000 )}:F>`,
 				inline: true
 			}])
-			.setThumbnail(targetMember.displayAvatarURL({ extension: 'gif', forceStatic: false, size: 4096 }))
+			.setThumbnail(targetMember.displayAvatarURL({ size: 4096 }))
 			.setTimestamp()
 			.setColor(displayHexColor)
 		

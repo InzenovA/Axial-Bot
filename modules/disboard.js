@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, Events } = require('discord.js')
+const { Client, Events } = require('discord.js')
 const schedule = require('node-schedule')
 const disboardSchema = require('../schemas/disboard-schema')
 const bumpsSchema = require('../schemas/bumps-schema')
@@ -84,7 +84,7 @@ module.exports = async (client) => {
 			schedule.scheduleJob(`${guild.id}`, bumpTime, async () => {
 				const channel = await client.channels.fetch(cache.channelId)
 				if (channel) {
-					channel.send({ content: [cache.content] })
+					channel.send({ content: cache.content })
 				}
 				await bumpsSchema.findOneAndDelete({ _id: guild.id })
 			})

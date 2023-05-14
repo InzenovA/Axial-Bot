@@ -46,7 +46,7 @@ module.exports = {
 				const avatarAuthor = new EmbedBuilder()
 				.setColor(0x000000)
 				.setTitle(target.user.tag)
-				.setImage(target.displayAvatarURL({ extension: 'gif', forceStatic: false, size: 4096 }))
+				.setImage(target.displayAvatarURL({ size: 4096 }))
 
 				interaction.reply({
 					embeds: [avatarAuthor],
@@ -59,7 +59,7 @@ module.exports = {
 			const avatarAuthor = new EmbedBuilder()
 			.setColor(0x000000)
 			.setTitle(target.user.tag)
-			.setImage(target.user.displayAvatarURL({ extension: 'gif', forceStatic: false, size: 4096 }))
+			.setImage(target.user.displayAvatarURL({ size: 4096 }))
 
 			interaction.reply({
 				embeds: [avatarAuthor],
