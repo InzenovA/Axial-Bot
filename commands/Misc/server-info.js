@@ -32,14 +32,14 @@ module.exports = {
 			}, {
 				name: 'Members',
 				value: `👥 Total: ${memberCount}\n
-				👤 Humans: ${members.cache.filter((m) => !m.user.bot).size}
-				🤖 Bots: ${members.cache.filter((m) => m.user.bot).size}`,
+				👤 Humans: ${members.cache.filter(member => !member.user.bot).size}
+				🤖 Bots: ${members.cache.filter(member => member.user.bot).size}`,
 				inline: true
 			}, {
 				name: 'Channels',
 				value: `Total: ${channels.cache.size}\n
-					#️⃣ Text: ${channels.cache.filter((c) => c.type == ChannelType.GuildText).size}
-					🔊 Voice: ${channels.cache.filter((c) => c.type == ChannelType.GuildVoice).size}`,
+					#️⃣ Text: ${channels.cache.filter(channel => channel.type == ChannelType.GuildText).size}
+					🔊 Voice: ${channels.cache.filter(channel => channel.type == ChannelType.GuildVoice).size}`,
 				inline: true
 			}, {
 				name: 'Roles',
@@ -49,13 +49,14 @@ module.exports = {
 				name: 'Nitro',
 				value: `Tier: ${premiumTier}
 					Boosts: ${premiumSubscriptionCount}
-					Boosters: ${members.cache.filter((m) => m.premiumSince).size}`,
+					Boosters: ${members.cache.filter(member => member.premiumSince).size}`,
 				inline: true
 			}, {
 				name: 'Emotes',
 				value: `Total: ${emojis.cache.size + stickers.cache.size}\n
-					Static: ${emojis.cache.filter((e) => !e.animated).size}
-					Animated: ${emojis.cache.filter((e) => e.animated).size}\nStickers: ${stickers.cache.size}`,
+					Static: ${emojis.cache.filter(emoji => !emoji.animated).size}
+					Animated: ${emojis.cache.filter(emoji => emoji.animated).size}
+					Stickers: ${stickers.cache.size}`,
 				inline: true
 			}])
 			.setThumbnail(guild.iconURL({ format: "png", dynamic: true }))

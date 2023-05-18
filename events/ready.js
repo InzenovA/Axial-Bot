@@ -16,7 +16,7 @@ module.exports = {
 			useUnifiedTopology: true
 		}).then(() => {
 			console.log("The bot is now connected to the database.")
-		}).catch((err) => {
+		}).catch(err => {
 			console.log(err)
 		})
 	}

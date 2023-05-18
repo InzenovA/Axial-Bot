@@ -55,7 +55,7 @@ module.exports = {
 
 		axios
 			.get(`https://www.reddit.com/r/${subreddit}/random/.json`)
-			.then((response) => {
+			.then(response => {
 				let permalink = response.data[0].data.children[0].data.permalink
 				let memeUrl = `https://reddit.com${permalink}`
 				let memeImage = response.data[0].data.children[0].data.url

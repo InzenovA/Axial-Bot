@@ -35,8 +35,8 @@ module.exports = {
 	 */
 	callback: ({ interaction, channel }) => {
 		const duration = interaction.options.getString('duration')
-		targetChannel = interaction.options.getChannel('channel')
-		reason = interaction.options.getString('reason')
+		const targetChannel = interaction.options.getChannel('channel')
+		const reason = interaction.options.getString('reason')
 		
 		const length = time(duration) / 1000
 		if (length == null) return interaction.reply({ content: "Invalid time format." }) 
