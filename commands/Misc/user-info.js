@@ -10,7 +10,6 @@ module.exports = {
 		name: 'user',
 		description: 'The optional user you want to see the profile of',
 		type: ApplicationCommandOptionType.User,
-		required: false
 	}],
 	/**
 	 * 
@@ -26,7 +25,7 @@ module.exports = {
 		const profileEmbed = new EmbedBuilder()
 			.setTitle('User Information')
 			.setDescription(`<@${user.id}>`)
-			.addFields([{ 
+			.addFields({ 
 				name: 'Member Name', 
 				value: user.tag
 			}, {
@@ -37,7 +36,7 @@ module.exports = {
 				name: 'Registered',
 				value: `<t:${parseInt(user.createdTimestamp / 1000 )}:F>`,
 				inline: true
-			}])
+			})
 			.setThumbnail(target.displayAvatarURL({ size: 4096 }))
 			.setTimestamp()
 			.setColor(displayHexColor)

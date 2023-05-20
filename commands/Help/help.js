@@ -28,7 +28,6 @@ module.exports = {
 	options: [{
 		name: 'command',
 		description: 'The command name you want extra information for',
-		required: false,
 		type: ApplicationCommandOptionType.String
 	}],
 	/**

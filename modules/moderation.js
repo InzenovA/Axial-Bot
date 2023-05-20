@@ -25,13 +25,11 @@ const moderatorCheck = async (target, guild) => {
  */
 const deleteBan = async (client, userId, guildId) => {
 	const guild = client.guilds.cache.get(guildId)
-	if (guild) {
-		guild.bans.remove(userId, "Ban expired").catch(() => { })
-	}
+	guild?.bans.remove(userId, "Ban expired").catch(() => { })
 	await banSchema.findOneAndDelete({ guildId, userId })
 
-	const job = schedule.scheduledJobs[`${guildId} - ${userId}`]
-	if (job) job.cancel()
+	const job = schedule.scheduledJobs[`ban ${guildId} - ${userId}`]
+	job?.cancel()
 }
 
 /**
@@ -42,7 +40,7 @@ const deleteBan = async (client, userId, guildId) => {
 const loadBans = async (client, bans) => {
 	for (let i = 0; i < bans.length; i++) {
 		let { guildId, userId, endTime } = bans[i]
-		schedule.scheduleJob(`${guildId} - ${userId}`, endTime, async () => {
+		schedule.scheduleJob(`ban ${guildId} - ${userId}`, endTime, async () => {
 			deleteBan(client, userId, guildId)
 		})
 	}

@@ -18,7 +18,7 @@ module.exports = {
 		const profileEmbed = new EmbedBuilder()
 			.setTitle('User Information')
 			.setDescription(`<@${user.id}>`)
-			.addFields([{ 
+			.addFields({ 
 				name: 'Member Name', 
 				value: user.tag
 			}, {
@@ -29,7 +29,7 @@ module.exports = {
 				name: 'Registered',
 				value: `<t:${parseInt(user.createdTimestamp / 1000 )}:F>`,
 				inline: true
-			}])
+			})
 			.setThumbnail(targetMember.displayAvatarURL({ size: 4096 }))
 			.setTimestamp()
 			.setColor(displayHexColor)

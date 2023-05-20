@@ -1,6 +1,7 @@
 const {
 	PermissionsBitField,
 	ApplicationCommandOptionType,
+	ChannelType,
 	ChatInputCommandInteraction,
 	ActionRowBuilder,
 	ModalBuilder,
@@ -20,8 +21,7 @@ module.exports = {
 		name: 'channel',
 		description: 'The optional channel you want to send to',
 		type: ApplicationCommandOptionType.Channel,
-		channelTypes: [0],
-		required: false
+		channelTypes: [ChannelType.GuildText],
 	}],
 	/**
 	 * 

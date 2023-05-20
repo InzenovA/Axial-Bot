@@ -1,6 +1,7 @@
 const {
 	PermissionsBitField,
 	ApplicationCommandOptionType,
+	ChannelType,
 	ChatInputCommandInteraction,
 } = require('discord.js')
 
@@ -26,8 +27,7 @@ module.exports = {
 		name: 'channel',
 		description: 'The optional channel you want messages to be sent to',
 		type: ApplicationCommandOptionType.Channel,
-		channelTypes: [0],
-		required: false
+		channelTypes: [ChannelType.GuildText],
 	}],
 	/**
 	 * 

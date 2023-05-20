@@ -14,8 +14,7 @@ module.exports = {
 	 */
 	callback: async ({ interaction, client }) => {
 		const { id, tag, createdTimestamp } = client.user
-		let serverCount = await client.guilds.fetch()
-		serverCount = serverCount.size
+		const serverCount = await client.guilds.cache.size
 
 		let totalSeconds = client.uptime / 1000
 		const days = Math.floor( totalSeconds / (24 * 60 * 60) )
@@ -34,7 +33,7 @@ module.exports = {
 		const botEmbed = new EmbedBuilder()
 			.setTitle(tag)
 			.setDescription(`<@${id}>`)
-			.addFields([{
+			.addFields({
 				name: 'Created',
 				value: `<t:${parseInt(createdTimestamp / 1000 )}:F>`,
 			}, {
@@ -48,7 +47,7 @@ module.exports = {
 				name: 'Memory Usage',
 				value: `${process.memoryUsage.rss()/1000000} MB`,
 				inline: true
-			}])
+			})
 			.setThumbnail(client.user.displayAvatarURL({ size: 4096 }))
 			.setTimestamp()
 			.setFooter({ text: `Bot ID: ${id}`})

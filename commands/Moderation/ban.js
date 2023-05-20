@@ -22,17 +22,14 @@ module.exports = {
 		name: 'duration',
 		description: 'How long they should be banned for',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}, {
 		name: 'delete_messages',
 		description: 'How much of their recent message history to delete',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}, {
 		name: 'reason',
 		description: 'The reason for the ban',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}],
 	/**
 	 * 
@@ -70,8 +67,6 @@ module.exports = {
 			return interaction.reply({ embeds: [embed], ephemeral: true })
 		}
 
-		// let deleteMessages = null
-
 		let responseMessage = `${target} (${target.user.tag}) has been banned.`
 		let dmMessage = `You have been banned from **${guild.name}**.`
 
@@ -105,7 +100,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch(err => { console.log(err) })
 
 		embed.setDescription(responseMessage).setColor(0xff0000)
 

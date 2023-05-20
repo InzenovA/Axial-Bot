@@ -26,7 +26,6 @@ module.exports = {
 		name: 'reason',
 		description: 'The reason for the mute',
 		type: ApplicationCommandOptionType.String,
-		required: false,
 		max_length: 512
 	}],
 	/**
@@ -75,7 +74,7 @@ module.exports = {
 				embeds: [
 					new EmbedBuilder().setDescription(`You have been unmuted from **${guild.name}**`)
 				] 
-			}).catch((err) => { console.log(err) })
+			}).catch(err => { console.log(err) })
 			return interaction.reply({ embeds: [embed] })
 		}
 		if ((unixDuration / 1000) > 2419200) {
@@ -94,7 +93,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch(err => { console.log(err) })
 
 		const responseEmbed = new EmbedBuilder()
 			.setDescription(responseMessage)

@@ -20,7 +20,6 @@ module.exports = {
 		name: 'reason',
 		description: 'The reason for the kick',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}],
 	/**
 	 * 
@@ -65,7 +64,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch(err => { console.log(err) })
 
 		const responseEmbed = new EmbedBuilder()
 			.setDescription(responseMessage)
