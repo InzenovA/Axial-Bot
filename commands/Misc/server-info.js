@@ -23,7 +23,7 @@ module.exports = {
 		const serverEmbed = new EmbedBuilder()
 			.setTitle(name)
 			.setDescription(`Created: <t:${parseInt(createdTimestamp / 1000 )}:F>`)
-			.addFields([{
+			.addFields({
 				name: 'Description',
 				value: description || "No description"
 			}, { 
@@ -58,7 +58,7 @@ module.exports = {
 					Animated: ${emojis.cache.filter(emoji => emoji.animated).size}
 					Stickers: ${stickers.cache.size}`,
 				inline: true
-			}])
+			})
 			.setThumbnail(guild.iconURL({ format: "png", dynamic: true }))
 			.setColor(guild.members.me.roles.highest.hexColor)
 			.setFooter({ text: `ID: ${id}` })

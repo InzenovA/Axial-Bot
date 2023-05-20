@@ -34,7 +34,6 @@ module.exports = async (client) => {
 	client.on(Events.ClientReady, async () => {
 		client.application.commands.set(commandsArray)
 
-		await client.guilds.fetch()
 		for (const guild of client.testGuilds) {
 			client.guilds.cache.get(guild)?.commands.set(guildCommandsArray)
 		}

@@ -17,7 +17,7 @@ module.exports = {
 	callback: ({ interaction, targetMessage, guild, channel }) => {
 		const profileEmbed = new EmbedBuilder()
 			.setTitle('Message Information')
-			.addFields([{ 
+			.addFields({ 
 				name: 'Message ID', 
 				value: `${targetMessage.id}\n[Message Link](${targetMessage.url})`
 			}, {
@@ -26,7 +26,7 @@ module.exports = {
 			}, {
 				name: 'Guild ID',
 				value: guild.id,
-			}])
+			})
 			.setTimestamp()
 		
 		interaction.reply({

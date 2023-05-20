@@ -43,9 +43,8 @@ module.exports = async (client) => {
 				const { member, url, content, attachments, createdTimestamp, id } = await reaction.message.fetch()
 				const { displayName } = member
 
-				const starboardChannel = await client.channels.fetch(starboardCache[reaction.message.guildId].channelId).catch(err => {
-					deleteCache(reaction.message.guildId).then(() => { return })
-				})
+				const starboardChannel = client.channels.cache.get(starboardCache[reaction.message.guildId].channelId)
+				if (!starboardChannel) return
 				const starboardChannelMessages = await starboardChannel.messages.fetch({ limit: 100 })
 				const existingMessage = starboardChannelMessages.find(channelMessage => {
 					if (channelMessage.embeds.length == 1 && channelMessage.author.id == client.user.id) {
@@ -57,16 +56,16 @@ module.exports = async (client) => {
 
 				const embed = new EmbedBuilder()
 					.setAuthor({ name: displayName, iconURL: member.displayAvatarURL({ size: 4096 }) })
-					.setFields([{
+					.setFields({
 						name: "Message Link",
 						value: `[Jump to the message](${url})`
-					}])
+					})
 					.setTimestamp(createdTimestamp)
 					.setFooter({ text: id })
 				if (content) embed.setDescription(content)
 				if (attachments) embed.setImage(attachments.at(0)?.attachment)
 
-				starboardChannel?.send({ embeds: [ embed ] })
+				starboardChannel.send({ embeds: [ embed ] })
 			}
 		}
     })
