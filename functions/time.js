@@ -12,16 +12,50 @@ module.exports = (value) => {
 	const w = d * 7
 	const y = d * 365
 
-	const split = value.match(/\d+|\D+/g)
+	const split = value.match(/^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i)
 	let duration = parseInt(split[0])
 	let type = split[1]?.toLowerCase() || 's'
 
-	if (type == 'ms') return duration * ms
-	else if (type == 's') return duration * s
-	else if (type == 'm') return duration * m
-	else if (type == 'h') return duration * h
-	else if (type == 'd') return duration * d
-	else if (type == 'w') return duration * w
-	else if (type == 'y') return duration * y
-	else return null
+	switch (type) {
+		case 'years':
+		case 'year':
+		case 'yrs':
+		case 'yr':
+		case 'y':
+			return duration * y
+		case 'weeks':
+		case 'week':
+		case 'w':
+			return duration * w;
+		case 'days':
+		case 'day':
+		case 'd':
+			return duration * d
+		case 'hours':
+		case 'hour':
+		case 'hrs':
+		case 'hr':
+		case 'h':
+			return duration * h
+		case 'minutes':
+		case 'minute':
+		case 'mins':
+		case 'min':
+		case 'm':
+			return duration * m
+		case 'seconds':
+		case 'second':
+		case 'secs':
+		case 'sec':
+		case 's':
+			return duration * s;
+		case 'milliseconds':
+		case 'millisecond':
+		case 'msecs':
+		case 'msec':
+		case 'ms':
+			return duration * ms;
+		default:
+			return null
+	}
 }
