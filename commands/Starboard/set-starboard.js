@@ -27,7 +27,7 @@ module.exports = {
 		name: 'channel',
 		description: 'The optional channel you want messages to be sent to',
 		type: ApplicationCommandOptionType.Channel,
-		channelTypes: ChannelType.GuildText,
+		channelTypes: [ChannelType.GuildText],
 	}],
 	/**
 	 * 

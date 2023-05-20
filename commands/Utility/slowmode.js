@@ -18,7 +18,7 @@ module.exports = {
 		name: 'channel',
 		description: 'The channel you want to set the slowmode to',
 		type: ApplicationCommandOptionType.Channel,
-		channelTypes: ChannelType.GuildText,
+		channelTypes: [ChannelType.GuildText],
 	}, {
 		name: 'reason',
 		description: 'Reason the slowmode was changed', 
