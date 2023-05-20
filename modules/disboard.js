@@ -45,7 +45,7 @@ const loadBumps = async (client, bumps) => {
 	for (let i = 0; i < bumps.length; i++) {
 		let { _id: guildId, bumpTime } = bumps[i]
 		const cache = disboardCache[guildId]
-		schedule.scheduleJob(`${guildId}`, bumpTime, async () => {
+		schedule.scheduleJob(`bump ${guildId}`, bumpTime, async () => {
 			const channel = await client.channels.fetch(cache.channelId)
 			if (channel) {
 				channel.send(cache.content)
@@ -81,11 +81,10 @@ module.exports = async (client) => {
 				upsert: true
 			})
 
-			schedule.scheduleJob(`${guild.id}`, bumpTime, async () => {
+			schedule.scheduleJob(`bump ${guild.id}`, bumpTime, async () => {
 				const channel = await client.channels.fetch(cache.channelId)
-				if (channel) {
-					channel.send({ content: cache.content })
-				}
+				channel?.send({ content: cache.content })
+				
 				await bumpsSchema.findOneAndDelete({ _id: guild.id })
 			})
 		}

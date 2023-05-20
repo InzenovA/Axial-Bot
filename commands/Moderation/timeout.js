@@ -26,7 +26,6 @@ module.exports = {
 		name: 'reason',
 		description: 'The reason for the mute',
 		type: ApplicationCommandOptionType.String,
-		required: false,
 		max_length: 512
 	}],
 	/**

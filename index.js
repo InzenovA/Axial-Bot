@@ -22,7 +22,7 @@ const client = new Client({
 	presence: {
 		status: PresenceUpdateStatus.Online,
 		afk: false,
-		activity:  {
+		activity: {
 			name: '/help',
 			type: ActivityType.Playing
 		}

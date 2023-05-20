@@ -22,7 +22,6 @@ module.exports = {
 		name: 'user',
 		description: 'The optional user you want to see the avatar of',
 		type: ApplicationCommandOptionType.User,
-		required: false
 	}],
 	/**
 	 * 

@@ -20,7 +20,6 @@ module.exports = {
 		name: 'subreddit',
 		description: 'The subreddit you want the memes from',
 		type: ApplicationCommandOptionType.String,
-		required: false,
 		choices: [{
 			name: 'funny',
 			value: 'dankmemes'

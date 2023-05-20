@@ -1,4 +1,4 @@
-const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction } = require('discord.js')
+const { PermissionsBitField, ApplicationCommandOptionType, ChannelType, ChatInputCommandInteraction } = require('discord.js')
 const time = require('../../functions/time')
 
 module.exports = {
@@ -18,13 +18,11 @@ module.exports = {
 		name: 'channel',
 		description: 'The channel you want to set the slowmode to',
 		type: ApplicationCommandOptionType.Channel,
-		channelTypes: [0],
-		required: false
+		channelTypes: ChannelType.GuildText,
 	}, {
 		name: 'reason',
 		description: 'Reason the slowmode was changed', 
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}],
 	/**
 	 * 

@@ -20,7 +20,6 @@ module.exports = {
 		name: 'reason',
 		description: 'The reason for the kick',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}],
 	/**
 	 * 

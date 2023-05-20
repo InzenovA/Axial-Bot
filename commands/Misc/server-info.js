@@ -25,7 +25,7 @@ module.exports = {
 			.setDescription(`Created: <t:${parseInt(createdTimestamp / 1000 )}:F>`)
 			.addFields([{
 				name: 'Description',
-				value: description? description : "No description"
+				value: description || "No description"
 			}, { 
 				name: 'Owner',
 				value: `<@${owner.id}>\n${owner.user.tag}`

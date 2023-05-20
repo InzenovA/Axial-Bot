@@ -29,9 +29,9 @@ module.exports = {
 			const user = interaction.user
 
 			// Context menu only data
-			const targetMessage = interaction.targetMessage ? interaction.targetMessage : null
-			const targetMember = interaction.targetMember ? interaction.targetMember : null
-			const targetUser = interaction.targetUser ? interaction.targetUser : null
+			const targetMessage = interaction.targetMessage
+			const targetMember = interaction.targetMember
+			const targetUser = interaction.targetUser
 
 			const permissionsList = command.botPermissions || []
 			for (const permission of permissionsList) {

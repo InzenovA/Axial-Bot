@@ -10,7 +10,6 @@ module.exports = {
 		name: 'user',
 		description: 'The optional user you want to see the profile of',
 		type: ApplicationCommandOptionType.User,
-		required: false
 	}],
 	/**
 	 * 

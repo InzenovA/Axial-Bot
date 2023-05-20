@@ -14,7 +14,7 @@ module.exports = (value) => {
 
 	const split = value.match(/\d+|\D+/g)
 	let duration = parseInt(split[0])
-	let type = split[1] ? split[1].toLowerCase() : 's'
+	let type = split[1]?.toLowerCase() || 's'
 
 	if (type == 'ms') return duration * ms
 	else if (type == 's') return duration * s

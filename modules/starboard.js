@@ -64,12 +64,8 @@ module.exports = async (client) => {
 					// .setImage(attachments)
 					.setTimestamp(createdTimestamp)
 					.setFooter({ text: id })
-				
-				if (starboardChannel) {
-					starboardChannel.send({
-						embeds: [ embed ]
-					})
-				}
+
+				starboardChannel?.send({ embeds: [ embed ] })
 			}
 		}
     })

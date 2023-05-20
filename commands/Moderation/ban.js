@@ -22,17 +22,14 @@ module.exports = {
 		name: 'duration',
 		description: 'How long they should be banned for',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}, {
 		name: 'delete_messages',
 		description: 'How much of their recent message history to delete',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}, {
 		name: 'reason',
 		description: 'The reason for the ban',
 		type: ApplicationCommandOptionType.String,
-		required: false
 	}],
 	/**
 	 * 
@@ -69,8 +66,6 @@ module.exports = {
 			embed.setDescription("❌ | I am unable to ban that user.").setColor(0xff0000)
 			return interaction.reply({ embeds: [embed], ephemeral: true })
 		}
-
-		// let deleteMessages = null
 
 		let responseMessage = `${target} (${target.user.tag}) has been banned.`
 		let dmMessage = `You have been banned from **${guild.name}**.`
