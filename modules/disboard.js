@@ -7,7 +7,7 @@ let disboardCache = {}
 
 /**
  * 
- * @param {String} guildId 
+ * @param {string} guildId 
  */
 const fetchDisboardChannels = async (guildId) => {
 	let query = {}
