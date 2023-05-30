@@ -67,7 +67,7 @@ module.exports = {
 					.setTitle(`${memeTitle}`)
 					.setURL(`${memeUrl}`)
 					.setImage(memeImage)
-					// .setColor('RANDOM')
+					.setColor('Random')
 					.setFooter({ text: `👍 ${memeUpvotes} | 👎 ${memeDownvotes} | 💬 ${memeNumComments}` })
 				interaction.reply({
 					embeds: [ memeEmbed ]
