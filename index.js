@@ -1,9 +1,11 @@
 require('dotenv').config()
-const process = require('node:process')
 const { readdirSync } = require('fs')
 
-process.on('unhandledRejection', (reason, promise) => {
-	console.log(promise, reason)
+process.on('unhandledRejection', (reason) => {
+	console.log(reason)
+})
+process.on('uncaughtException', (err) => {
+	console.log(err)
 })
 
 const { Client, GatewayIntentBits, Partials, PresenceUpdateStatus, ActivityType, Collection } = require('discord.js')

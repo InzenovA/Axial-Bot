@@ -3,22 +3,11 @@ const {
 	ChatInputCommandInteraction,
 	Client,
 	EmbedBuilder,
-	ActionRowBuilder,
-	StringSelectMenuBuilder,
-	ButtonBuilder,
-	ButtonStyle,
+	PermissionsBitField
 } = require('discord.js')
 
-const emojis = {
-	"Context Menu": "📑",
-	"Disboard": "📈",
-	"Fun": "🎲",
-	"Help": "❓",
-	"Misc": "📀",
-	"Moderation": "🔨",
-	"Starboard": "⭐",
-	"Utility": "🧰"
-}
+
+const { getCommandId, addCommandToEmbed, components, emojis } = require('../../modules/help-module')
 
 module.exports = {
 	name: 'help',
@@ -38,82 +27,43 @@ module.exports = {
 	 * }}
 	 */
 	callback: async ({ interaction, client }) => {
+		const specificCommand = interaction.options.getString('command')
+		if (specificCommand) {
+			const commandObject = client.commands.find(command => command.name == specificCommand)
+			if (!commandObject) {
+				return interaction.reply({ content: "That command does not exist.", ephemeral: true })
+			}
+
+			let commandEmbed = new EmbedBuilder().setTitle(`</${commandObject.name}:${getCommandId(client, commandObject.name)}> command info`).setColor('Blue')
+			commandEmbed.setDescription(commandObject.description || null)
+
+			let usage = `/${commandObject.name}`
+			if (commandObject.expectedArgs) usage += ` ${commandObject.expectedArgs}`
+			commandEmbed.addFields({ name: "Usage", value: usage })
+
+			if (commandObject.botPermissions) {
+				let textPermissions = ""
+				for (const permission of commandObject.botPermissions) {
+					textPermissions += `${Object.keys(PermissionsBitField.Flags).find(key => PermissionsBitField.Flags[key] === permission)}, `
+				}
+				commandEmbed.addFields({ name: "Required Bot Permissions", value: textPermissions.slice(0, -2) })
+			}
+
+			return interaction.reply({ embeds: [commandEmbed] })
+		}
+
 		await interaction.deferReply()
 
-		let selectMenuOptions = [{
-			label: 'All',
-			value: 'all',
-			emoji: "🌐",
-			default: true
-		}]
-		for (const category of Object.keys(client.commandCategories)) {
-			selectMenuOptions.push({
-				label: category,
-				value: category.toLowerCase(),
-				emoji: emojis[category]
-			})
-		}
-
 		let embed = new EmbedBuilder()
-			.setTitle("Axial-Bot Help Menu")
+			.setTitle(`${client.user.username} Help Menu`)
 			.setColor('Blue')
-
-		const getCommand = (name) => {
-			const commandId = client.application.commands.cache
-				.filter(command => command.name == name)
-				.map(command => command.id)
-			return commandId
-		}
-
-		let components = (disabled=false) => {
-			const actionRow = new ActionRowBuilder()
-				.addComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId('help-menu-select')
-						.setPlaceholder('Select a category')
-						.setDisabled(disabled)
-						.setMinValues(0)
-						.setMaxValues(1)
-						.setOptions(selectMenuOptions)
-				)
-	
-			const startButton = new ButtonBuilder()
-				.setCustomId('start')
-				.setEmoji("⏮")
-				.setStyle(ButtonStyle.Secondary)
-				.setDisabled(disabled)
-
-			const previousButton = new ButtonBuilder()
-				.setCustomId('previous')
-				.setEmoji("⏪")
-				.setStyle(ButtonStyle.Primary)
-				.setDisabled(disabled)
-
-			const nextButton = new ButtonBuilder()
-				.setCustomId('next')
-				.setEmoji("⏩")
-				.setStyle(ButtonStyle.Primary)
-				.setDisabled(disabled)
-
-			const endButton = new ButtonBuilder()
-				.setCustomId('end')
-				.setEmoji("⏭")
-				.setStyle(ButtonStyle.Secondary)
-				.setDisabled(disabled)
-
-			const buttons = new ActionRowBuilder().addComponents(startButton, previousButton, nextButton, endButton)
-
-			return [ actionRow, buttons ]
-		}
-
-		const createMenu = (filter="all") => {
-			filter == "all" ? commandList = client.commands : commandList = client.commands.filter(command => command.category == filter)
-			return commandList
-		}
+		
+		embed = addCommandToEmbed(client, embed)
+		const lastPage = embed.data.footer.text.split(" ")[3]
 
 		interaction.editReply({
-			embeds: [ embed ],
-			components: components()
+			embeds: [embed],
+			components: components(client, 1, lastPage)
 		})
 	}
 }
