@@ -22,7 +22,7 @@ module.exports = {
 		const target = interaction.options.getMember("user") || member
 		const { user, joinedTimestamp, displayHexColor } = target
 
-		const profileEmbed = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setTitle("User Information")
 			.setDescription(`<@${user.id}>`)
 			.addFields({
@@ -42,7 +42,7 @@ module.exports = {
 			.setColor(displayHexColor)
 
 		interaction.reply({
-			embeds: [profileEmbed]
+			embeds: [embed]
 		})
 	}
 }

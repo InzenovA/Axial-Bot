@@ -20,7 +20,7 @@ module.exports = {
 		await roles.fetch()
 		await emojis.fetch()
 
-		const serverEmbed = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setTitle(name)
 			.setDescription(`Created: <t:${parseInt(createdTimestamp / 1000)}:F>`)
 			.addFields({
@@ -64,7 +64,7 @@ module.exports = {
 			.setFooter({ text: `ID: ${id}` })
 
 		interaction.reply({
-			embeds: [serverEmbed]
+			embeds: [embed]
 		})
 	}
 }

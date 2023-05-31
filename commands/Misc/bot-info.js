@@ -14,7 +14,7 @@ module.exports = {
 	 */
 	callback: async ({ interaction, client }) => {
 		const { id, tag, createdTimestamp } = client.user
-		const serverCount = await client.guilds.cache.size
+		const serverCount = client.guilds.cache.size
 
 		let totalSeconds = client.uptime / 1000
 		const days = Math.floor(totalSeconds / (24 * 60 * 60))
@@ -30,7 +30,7 @@ module.exports = {
 			dependencyString += `\n**${dependency}**: v${dependencies[dependency].substring(1)}`
 		}
 
-		const botEmbed = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setTitle(tag)
 			.setDescription(`<@${id}>`)
 			.addFields({
@@ -53,7 +53,7 @@ module.exports = {
 			.setFooter({ text: `Bot ID: ${id}` })
 
 		interaction.reply({
-			embeds: [botEmbed]
+			embeds: [embed]
 		})
 	}
 }

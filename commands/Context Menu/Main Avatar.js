@@ -12,17 +12,14 @@ module.exports = {
 	 * }}
 	 */
 	callback: ({ interaction, targetUser }) => {
-		const avatarAuthor = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setColor(0x000000)
 			.setTitle(targetUser.tag)
 			.setImage(targetUser.displayAvatarURL({ size: 4096 }))
 
 		interaction.reply({
-			embeds: [avatarAuthor],
-			ephemeral: true,
-			allowedMentions: {
-				users: []
-			}
+			embeds: [embed],
+			ephemeral: true
 		})
 	}
 }

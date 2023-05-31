@@ -15,7 +15,7 @@ module.exports = {
 	callback: ({ interaction, targetMember }) => {
 		const { user, joinedTimestamp, displayHexColor } = targetMember
 
-		const profileEmbed = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setTitle("User Information")
 			.setDescription(`<@${user.id}>`)
 			.addFields({
@@ -35,7 +35,7 @@ module.exports = {
 			.setColor(displayHexColor)
 
 		interaction.reply({
-			embeds: [profileEmbed],
+			embeds: [embed],
 			ephemeral: true
 		})
 	}

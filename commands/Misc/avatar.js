@@ -42,29 +42,23 @@ module.exports = {
 					}
 				})
 			} else {
-				const avatarAuthor = new EmbedBuilder()
+				const embed = new EmbedBuilder()
 					.setColor(0x000000)
 					.setTitle(target.user.tag)
 					.setImage(target.displayAvatarURL({ size: 4096 }))
 
 				interaction.reply({
-					embeds: [avatarAuthor],
-					allowedMentions: {
-						users: []
-					}
+					embeds: [embed]
 				})
 			}
 		} else {
-			const avatarAuthor = new EmbedBuilder()
+			const embed = new EmbedBuilder()
 				.setColor(0x000000)
 				.setTitle(target.user.tag)
 				.setImage(target.user.displayAvatarURL({ size: 4096 }))
 
 			interaction.reply({
-				embeds: [avatarAuthor],
-				allowedMentions: {
-					users: []
-				}
+				embeds: [embed]
 			})
 		}
 	}

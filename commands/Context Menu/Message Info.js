@@ -15,7 +15,7 @@ module.exports = {
 	 * }}
 	 */
 	callback: ({ interaction, targetMessage, guild, channel }) => {
-		const profileEmbed = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setTitle("Message Information")
 			.addFields({
 				name: "Message ID",
@@ -30,7 +30,7 @@ module.exports = {
 			.setTimestamp()
 
 		interaction.reply({
-			embeds: [ profileEmbed ],
+			embeds: [embed],
 			ephemeral: true
 		})
 	}
