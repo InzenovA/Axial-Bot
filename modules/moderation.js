@@ -1,12 +1,12 @@
-const { Client, Guild, GuildMember, PermissionsBitField } = require('discord.js')
-const schedule = require('node-schedule')
-const roleSchema = require('../schemas/moderator-role-schema')
-const banSchema = require('../schemas/bans-schema')
+const { Client, Guild, GuildMember, PermissionsBitField } = require("discord.js")
+const schedule = require("node-schedule")
+const roleSchema = require("../schemas/moderator-role-schema")
+const banSchema = require("../schemas/bans-schema")
 
 /**
- * 
- * @param {GuildMember} target 
- * @param {Guild} guild 
+ *
+ * @param {GuildMember} target
+ * @param {Guild} guild
  */
 const moderatorCheck = async (target, guild) => {
 	const query = await roleSchema.findOne({ _id: guild.id })
@@ -18,10 +18,10 @@ const moderatorCheck = async (target, guild) => {
 }
 
 /**
- * 
- * @param {Client} client 
- * @param {String} userId 
- * @param {String} guildId 
+ *
+ * @param {Client} client
+ * @param {String} userId
+ * @param {String} guildId
  */
 const deleteBan = async (client, userId, guildId) => {
 	const guild = client.guilds.cache.get(guildId)
@@ -33,9 +33,9 @@ const deleteBan = async (client, userId, guildId) => {
 }
 
 /**
- * 
- * @param {Client} client 
- * @param {Array} bans 
+ *
+ * @param {Client} client
+ * @param {Array} bans
  */
 const loadBans = async (client, bans) => {
 	for (let i = 0; i < bans.length; i++) {
@@ -47,8 +47,8 @@ const loadBans = async (client, bans) => {
 }
 
 /**
- * 
- * @param {Client} client 
+ *
+ * @param {Client} client
  */
 module.exports = async (client) => {
 	const now = new Date()

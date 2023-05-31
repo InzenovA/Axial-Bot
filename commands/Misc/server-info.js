@@ -1,12 +1,12 @@
-const { ChatInputCommandInteraction, Guild, EmbedBuilder, ChannelType } = require('discord.js')
+const { ChatInputCommandInteraction, Guild, EmbedBuilder, ChannelType } = require("discord.js")
 
 module.exports = {
-	name: 'server-info',
+	name: "server-info",
 	description: "Displays information about the server.",
-	category: 'Misc',
+	category: "Misc",
 	dm_permission: false,
 	/**
-	 * 
+	 *
 	 * @param {{
 	 * 	interaction: ChatInputCommandInteraction,
 	 * 	guild: Guild
@@ -20,39 +20,39 @@ module.exports = {
 		await roles.fetch()
 		await emojis.fetch()
 
-		const serverEmbed = new EmbedBuilder()
+		const embed = new EmbedBuilder()
 			.setTitle(name)
-			.setDescription(`Created: <t:${parseInt(createdTimestamp / 1000 )}:F>`)
+			.setDescription(`Created: <t:${parseInt(createdTimestamp / 1000)}:F>`)
 			.addFields({
-				name: 'Description',
+				name: "Description",
 				value: description || "No description"
-			}, { 
-				name: 'Owner',
+			}, {
+				name: "Owner",
 				value: `<@${owner.id}>\n${owner.user.tag}`
 			}, {
-				name: 'Members',
+				name: "Members",
 				value: `👥 Total: ${memberCount}\n
 				👤 Humans: ${members.cache.filter(member => !member.user.bot).size}
 				🤖 Bots: ${members.cache.filter(member => member.user.bot).size}`,
 				inline: true
 			}, {
-				name: 'Channels',
+				name: "Channels",
 				value: `Total: ${channels.cache.size}\n
 					#️⃣ Text: ${channels.cache.filter(channel => channel.type == ChannelType.GuildText).size}
 					🔊 Voice: ${channels.cache.filter(channel => channel.type == ChannelType.GuildVoice).size}`,
 				inline: true
 			}, {
-				name: 'Roles',
+				name: "Roles",
 				value: `${roles.cache.size}`,
 				inline: true
 			}, {
-				name: 'Nitro',
+				name: "Nitro",
 				value: `Tier: ${premiumTier}
 					Boosts: ${premiumSubscriptionCount}
 					Boosters: ${members.cache.filter(member => member.premiumSince).size}`,
 				inline: true
 			}, {
-				name: 'Emotes',
+				name: "Emotes",
 				value: `Total: ${emojis.cache.size + stickers.cache.size}\n
 					Static: ${emojis.cache.filter(emoji => !emoji.animated).size}
 					Animated: ${emojis.cache.filter(emoji => emoji.animated).size}
@@ -62,9 +62,9 @@ module.exports = {
 			.setThumbnail(guild.iconURL({ format: "png", dynamic: true }))
 			.setColor(guild.members.me.roles.highest.hexColor)
 			.setFooter({ text: `ID: ${id}` })
-		
+
 		interaction.reply({
-			embeds: [ serverEmbed ]
+			embeds: [embed]
 		})
 	}
 }

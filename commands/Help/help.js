@@ -4,37 +4,36 @@ const {
 	Client,
 	EmbedBuilder,
 	PermissionsBitField
-} = require('discord.js')
+} = require("discord.js")
 
-
-const { getCommandId, addCommandToEmbed, components, emojis } = require('../../modules/help-module')
+const { getCommandId, addCommandToEmbed, components, emojis } = require("../../modules/help-module")
 
 module.exports = {
-	name: 'help',
-	description: 'Displays all the commands available on the bot.',
-	category: 'Help',
-	expectedArgs: '[command]',
+	name: "help",
+	description: "Displays all the commands available on the bot.",
+	category: "Help",
+	expectedArgs: "[command]",
 	options: [{
-		name: 'command',
-		description: 'The command name you want extra information for',
+		name: "command",
+		description: "The command name you want extra information for",
 		type: ApplicationCommandOptionType.String
 	}],
 	/**
-	 * 
+	 *
 	 * @param {{
 	 * 	interaction: ChatInputCommandInteraction,
 	 * 	client: Client
 	 * }}
 	 */
 	callback: async ({ interaction, client }) => {
-		const specificCommand = interaction.options.getString('command')
+		const specificCommand = interaction.options.getString("command")
 		if (specificCommand) {
 			const commandObject = client.commands.find(command => command.name == specificCommand)
 			if (!commandObject) {
 				return interaction.reply({ content: "That command does not exist.", ephemeral: true })
 			}
 
-			let commandEmbed = new EmbedBuilder().setTitle(`</${commandObject.name}:${getCommandId(client, commandObject.name)}> command info`).setColor('Blue')
+			let commandEmbed = new EmbedBuilder().setTitle(`</${commandObject.name}:${getCommandId(client, commandObject.name)}> command info`).setColor("Blue")
 			commandEmbed.setDescription(commandObject.description || null)
 
 			let usage = `/${commandObject.name}`
@@ -56,8 +55,8 @@ module.exports = {
 
 		let embed = new EmbedBuilder()
 			.setTitle(`${client.user.username} Help Menu`)
-			.setColor('Blue')
-		
+			.setColor("Blue")
+
 		embed = addCommandToEmbed(client, embed)
 		const lastPage = embed.data.footer.text.split(" ")[3]
 

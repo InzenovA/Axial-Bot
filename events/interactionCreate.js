@@ -1,12 +1,12 @@
-const { Events, CommandInteraction, Client, EmbedBuilder, PermissionsBitField } = require('discord.js')
+const { Events, CommandInteraction, Client, EmbedBuilder, PermissionsBitField } = require("discord.js")
 
 module.exports = {
 	name: Events.InteractionCreate,
 	once: false,
 	/**
-	 * 
-	 * @param {CommandInteraction} interaction 
-	 * @param {Client} client 
+	 *
+	 * @param {CommandInteraction} interaction
+	 * @param {Client} client
 	 */
 	async execute(interaction, client) {
 		if (!(interaction.isChatInputCommand() || interaction.isContextMenuCommand() )) return

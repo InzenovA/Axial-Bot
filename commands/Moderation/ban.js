@@ -1,38 +1,38 @@
-const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild, GuildMember, Client, EmbedBuilder } = require('discord.js')
+const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild, GuildMember, Client, EmbedBuilder } = require("discord.js")
 
-const modlogsSchema = require('../../schemas/modlogs-schema')
-const banSchema = require('../../schemas/bans-schema')
-const { moderatorCheck, loadBans } = require('../../modules/moderation')
-const time = require('../../functions/time')
+const modlogsSchema = require("../../schemas/modlogs-schema")
+const banSchema = require("../../schemas/bans-schema")
+const { moderatorCheck, loadBans } = require("../../modules/moderation")
+const time = require("../../functions/time")
 
 module.exports = {
-	name: 'ban',
-	description: 'Ban a member from the server with an optional timer.',
-	category: 'Moderation',
-	expectedArgs: '<user> [duration] [delete_messages] [reason]',
+	name: "ban",
+	description: "Ban a member from the server with an optional timer.",
+	category: "Moderation",
+	expectedArgs: "<user> [duration] [delete_messages] [reason]",
 	defaultMemberPermissions: PermissionsBitField.Flags.BanMembers,
 	botPermissions: [PermissionsBitField.Flags.BanMembers],
 	dm_permission: false,
 	options: [{
-		name: 'user',
-		description: 'The user to ban',
+		name: "user",
+		description: "The user to ban",
 		type: ApplicationCommandOptionType.User,
 		required: true
 	}, {
-		name: 'duration',
-		description: 'How long they should be banned for',
-		type: ApplicationCommandOptionType.String,
+		name: "duration",
+		description: "How long they should be banned for",
+		type: ApplicationCommandOptionType.String
 	}, {
-		name: 'delete_messages',
-		description: 'How much of their recent message history to delete',
-		type: ApplicationCommandOptionType.String,
+		name: "delete_messages",
+		description: "How much of their recent message history to delete",
+		type: ApplicationCommandOptionType.String
 	}, {
-		name: 'reason',
-		description: 'The reason for the ban',
-		type: ApplicationCommandOptionType.String,
+		name: "reason",
+		description: "The reason for the ban",
+		type: ApplicationCommandOptionType.String
 	}],
 	/**
-	 * 
+	 *
 	 * @param {{
 	 * 	interaction: ChatInputCommandInteraction,
 	 * 	guild: Guild,
@@ -41,10 +41,10 @@ module.exports = {
 	 * }}
 	 */
 	callback: async ({ interaction, guild, member, client }) => {
-		const user = interaction.options.getUser('user')
-		const duration = interaction.options.getString('duration')
-		const deleteMessages = interaction.options.getString('delete_messages')
-		const reason = interaction.options.getString('reason')
+		const user = interaction.options.getUser("user")
+		const duration = interaction.options.getString("duration")
+		const deleteMessages = interaction.options.getString("delete_messages")
+		const reason = interaction.options.getString("reason")
 		const target = await guild.members.fetch(user)
 
 		const embed = new EmbedBuilder()
@@ -100,7 +100,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch(err => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
 
 		embed.setDescription(responseMessage).setColor(0xff0000)
 

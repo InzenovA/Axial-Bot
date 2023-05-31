@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require("mongoose")
 
 const reqString = {
 	type: String,
@@ -8,10 +8,10 @@ const reqString = {
 const starboardSchema = Schema({
 	_id: reqString,
 	channelId: reqString,
-    starCount: {
-        type: Number,
-        required: true
-    }
+	starCount: {
+		type: Number,
+		required: true
+	}
 })
 
-module.exports = model('starboard', starboardSchema, 'starboard')
+module.exports = model("starboard", starboardSchema, "starboard")
