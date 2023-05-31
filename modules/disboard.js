@@ -13,7 +13,7 @@ const fetchDisboardChannels = async (guildId) => {
 	let query = {}
 
 	if (guildId) query._id = guildId
-	
+
 	const results = await disboardSchema.find(query)
 
 	for (const result of results) {
@@ -62,6 +62,8 @@ module.exports = async (client) => {
 		const now = new Date()
 		const bumps = await bumpsSchema.find({ bumpTime: { $gt: now } })
 		await loadBumps(client, bumps)
+
+		await bumpsSchema.deleteMany({ bumpTime: { $lt: now } })
 	})
 
 	client.on(Events.MessageCreate, async (message) => {
@@ -82,35 +84,34 @@ module.exports = async (client) => {
 			schedule.scheduleJob(`bump ${guild.id}`, bumpTime, async () => {
 				const channel = client.channels.cache.get(cache.channelId)
 				channel?.send({ content: cache.content })
-				
+
 				await bumpsSchema.findOneAndDelete({ _id: guild.id })
 			})
 		}
 	})
 
 	client.on(Events.InteractionCreate, async (interaction) => {
-		if (interaction.isModalSubmit() && interaction.customId.startsWith('set-disboard')) {
-			content = interaction.fields.getTextInputValue('set-disboard-message')
+		if (!(interaction.isModalSubmit() && interaction.customId.startsWith('set-disboard'))) return
+		content = interaction.fields.getTextInputValue('set-disboard-message')
 
-			const { id: _id } = interaction.guild
-			const channelId = interaction.customId.split(" ")[1]
+		const { id: _id } = interaction.guild
+		const channelId = interaction.customId.split(" ")[1]
 
-			await disboardSchema.findOneAndUpdate({
-				_id
-			}, {
-				_id,
-				channelId,
-				content
-			}, {
-				upsert: true
+		await disboardSchema.findOneAndUpdate({
+			_id
+		}, {
+			_id,
+			channelId,
+			content
+		}, {
+			upsert: true
+		})
+
+		fetchDisboardChannels(_id).then(async () => {
+			await interaction.reply({
+				content: `The Disboard reminder channel has been bound to <#${channelId}>.\n**NOTE:** The new message and channel location will take effect in the next bump.`
 			})
-
-			fetchDisboardChannels(_id).then(async () => {
-				await interaction.reply({
-					content: `The Disboard reminder channel has been bound to <#${channelId}>.\n**NOTE:** The new message and channel location will take effect in the next bump.`
-				})
-			})
-		}	
+		})
 	})
 }
 
