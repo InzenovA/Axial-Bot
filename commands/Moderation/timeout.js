@@ -1,35 +1,35 @@
-const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild, GuildMember, EmbedBuilder } = require('discord.js')
+const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild, GuildMember, EmbedBuilder } = require("discord.js")
 
-const modlogsSchema = require('../../schemas/modlogs-schema')
-const { moderatorCheck } = require('../../modules/moderation')
-const time = require('../../functions/time')
+const modlogsSchema = require("../../schemas/modlogs-schema")
+const { moderatorCheck } = require("../../modules/moderation")
+const time = require("../../functions/time")
 
 module.exports = {
-	name: 'timeout',
-	description: 'Timeout a member to prevent them from interacting.',
-	category: 'Moderation',
-	expectedArgs: '<user> <duration> [reason]',
+	name: "timeout",
+	description: "Timeout a member to prevent them from interacting.",
+	category: "Moderation",
+	expectedArgs: "<user> <duration> [reason]",
 	defaultMemberPermissions: PermissionsBitField.Flags.ModerateMembers,
 	botPermissions: [PermissionsBitField.Flags.ModerateMembers],
 	dm_permission: false,
 	options: [{
-		name: 'user',
-		description: 'The user to mute',
+		name: "user",
+		description: "The user to mute",
 		type: ApplicationCommandOptionType.User,
 		required: true
 	}, {
-		name: 'duration',
-		description: 'How long they should be muted for. Type "0" to unmute the member',
+		name: "duration",
+		description: "How long they should be muted for. Type \"0\" to unmute the member",
 		type: ApplicationCommandOptionType.String,
 		required: true
 	}, {
-		name: 'reason',
-		description: 'The reason for the mute',
+		name: "reason",
+		description: "The reason for the mute",
 		type: ApplicationCommandOptionType.String,
 		max_length: 512
 	}],
 	/**
-	 * 
+	 *
 	 * @param {{
 	 * 	interaction: ChatInputCommandInteraction,
 	 * 	guild: Guild,
@@ -37,9 +37,9 @@ module.exports = {
 	 * }}
 	 */
 	callback: async ({ interaction, guild, member }) => {
-		const user = interaction.options.getUser('user')
-		const duration = interaction.options.getString('duration')
-		const reason = interaction.options.getString('reason')
+		const user = interaction.options.getUser("user")
+		const duration = interaction.options.getString("duration")
+		const reason = interaction.options.getString("reason")
 		const target = await guild.members.fetch(user)
 
 		const embed = new EmbedBuilder()
@@ -70,19 +70,19 @@ module.exports = {
 		if (unixDuration === 0) {
 			target.timeout(null, reason)
 			embed.setDescription(`${target} (${target.user.tag}) has been unmuted`)
-			target.user.send({ 
+			target.user.send({
 				embeds: [
 					new EmbedBuilder().setDescription(`You have been unmuted from **${guild.name}**`)
-				] 
-			}).catch(err => { console.log(err) })
+				]
+			}).catch((err) => { console.log(err) })
 			return interaction.reply({ embeds: [embed] })
 		}
 		if ((unixDuration / 1000) > 2419200) {
 			embed.setDescription("❌ | The duration must be below 28d.").setColor(0xff0000)
 			return interaction.reply({ embeds: [embed], ephemeral: true })
 		}
-		const unixTime = parseInt(Date.now()/1000 + unixDuration/1000)
-		
+		const unixTime = parseInt(Date.now() / 1000 + unixDuration / 1000)
+
 		let responseMessage = `${target} (${target.user.tag}) has been muted.`
 		let dmMessage = `You have been muted from **${guild.name}**.\nUnmute time: <t:${unixTime}:f> (<t:${unixTime}:R>)`
 		if (reason) {
@@ -93,7 +93,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch(err => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
 
 		const responseEmbed = new EmbedBuilder()
 			.setDescription(responseMessage)

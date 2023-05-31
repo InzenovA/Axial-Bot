@@ -1,20 +1,26 @@
 {
   "name": "axial-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Discord bot",
   "main": "index.js",
   "scripts": {
     "bot": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "eslint": "npx eslint --fix ."
   },
-  "keywords": [],
   "author": "InzenovA",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/InzenovA/Axial-Bot.git"
+  },
   "dependencies": {
     "axios": "^1.4.0",
     "discord.js": "^14.11.0",
     "dotenv": "^16.0.3",
     "mongoose": "^7.2.1",
     "node-schedule": "^2.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0"
   }
 }

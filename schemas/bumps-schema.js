@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require("mongoose")
 
 const bumpsSchema = Schema({
 	_id: {
@@ -11,4 +11,4 @@ const bumpsSchema = Schema({
 	}
 })
 
-module.exports = model('bumps', bumpsSchema)
+module.exports = model("bumps", bumpsSchema)

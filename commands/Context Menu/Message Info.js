@@ -1,37 +1,37 @@
-const { ApplicationCommandType, MessageContextMenuCommandInteraction, Message, Guild, EmbedBuilder } = require('discord.js')
+const { ApplicationCommandType, MessageContextMenuCommandInteraction, Message, Guild, EmbedBuilder } = require("discord.js")
 
 module.exports = {
-	name: 'Message Info',
-	category: 'Context Menu',
+	name: "Message Info",
+	category: "Context Menu",
 	type: ApplicationCommandType.Message,
 	dm_permission: false,
 	/**
-	 * 
+	 *
 	 * @param {{
-	 * 	interaction: MessageContextMenuCommandInteraction, 
-	 * 	targetMessage: Message, 
-	 * 	guild: Guild, 
+	 * 	interaction: MessageContextMenuCommandInteraction,
+	 * 	targetMessage: Message,
+	 * 	guild: Guild,
 	 * 	channel: any
 	 * }}
 	 */
 	callback: ({ interaction, targetMessage, guild, channel }) => {
 		const profileEmbed = new EmbedBuilder()
-			.setTitle('Message Information')
-			.addFields({ 
-				name: 'Message ID', 
+			.setTitle("Message Information")
+			.addFields({
+				name: "Message ID",
 				value: `${targetMessage.id}\n[Message Link](${targetMessage.url})`
 			}, {
-				name: 'Channel ID',
-				value: channel.id,
+				name: "Channel ID",
+				value: channel.id
 			}, {
-				name: 'Guild ID',
-				value: guild.id,
+				name: "Guild ID",
+				value: guild.id
 			})
 			.setTimestamp()
-		
+
 		interaction.reply({
 			embeds: [ profileEmbed ],
-			ephemeral: true,
+			ephemeral: true
 		})
 	}
 }

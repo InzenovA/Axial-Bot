@@ -1,17 +1,17 @@
-const { Client, Events, EmbedBuilder } = require('discord.js')
-const starboardSchema = require('../schemas/starboard-schema')
+const { Client, Events, EmbedBuilder } = require("discord.js")
+const starboardSchema = require("../schemas/starboard-schema")
 
 let starboardCache = {}
 
 /**
- * 
- * @param {String} guildId 
+ *
+ * @param {String} guildId
  */
 const fetchStarboardChannels = async (guildId) => {
 	let query = {}
 
 	if (guildId) query._id = guildId
-	
+
 	const results = await starboardSchema.find(query)
 
 	for (const result of results) {
@@ -21,8 +21,8 @@ const fetchStarboardChannels = async (guildId) => {
 }
 
 /**
- * 
- * @param {string} guildId 
+ *
+ * @param {string} guildId
  */
 const deleteCache = async (guildId) => {
 	await starboardSchema.findOneAndDelete({ _id: guildId })
@@ -30,14 +30,14 @@ const deleteCache = async (guildId) => {
 }
 
 /**
- * 
- * @param {Client} client 
+ *
+ * @param {Client} client
  */
 module.exports = async (client) => {
 	fetchStarboardChannels()
 
-    client.on(Events.MessageReactionAdd, async (reaction, user) => {
-		if (reaction.emoji.name == '⭐' && starboardCache[reaction.message.guildId] && !user.bot) {
+	client.on(Events.MessageReactionAdd, async (reaction, user) => {
+		if (reaction.emoji.name == "⭐" && starboardCache[reaction.message.guildId] && !user.bot) {
 			await reaction.fetch()
 			if (reaction.count >= starboardCache[reaction.message.guildId].starCount && !reaction.message.author.bot) {
 				const { member, url, content, attachments, createdTimestamp, id } = await reaction.message.fetch()
@@ -46,7 +46,7 @@ module.exports = async (client) => {
 				const starboardChannel = client.channels.cache.get(starboardCache[reaction.message.guildId].channelId)
 				if (!starboardChannel) return
 				const starboardChannelMessages = await starboardChannel.messages.fetch({ limit: 100 })
-				const existingMessage = starboardChannelMessages.find(channelMessage => {
+				const existingMessage = starboardChannelMessages.find((channelMessage) => {
 					if (channelMessage.embeds.length == 1 && channelMessage.author.id == client.user.id) {
 						if (channelMessage.embeds.footer == id) return true
 					}
@@ -68,7 +68,7 @@ module.exports = async (client) => {
 				starboardChannel.send({ embeds: [ embed ] })
 			}
 		}
-    })
+	})
 }
 
 module.exports.fetchStarboardChannels = fetchStarboardChannels

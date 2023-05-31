@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require("mongoose")
 
 const reqString = {
 	type: String,
@@ -14,4 +14,4 @@ const bansSchema = Schema({
 	}
 })
 
-module.exports = model('bans', bansSchema)
+module.exports = model("bans", bansSchema)

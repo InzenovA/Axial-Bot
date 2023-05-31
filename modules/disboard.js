@@ -1,13 +1,13 @@
-const { Client, Events } = require('discord.js')
-const schedule = require('node-schedule')
-const disboardSchema = require('../schemas/disboard-schema')
-const bumpsSchema = require('../schemas/bumps-schema')
+const { Client, Events } = require("discord.js")
+const schedule = require("node-schedule")
+const disboardSchema = require("../schemas/disboard-schema")
+const bumpsSchema = require("../schemas/bumps-schema")
 
 let disboardCache = {}
 
 /**
- * 
- * @param {string} guildId 
+ *
+ * @param {string} guildId
  */
 const fetchDisboardChannels = async (guildId) => {
 	let query = {}
@@ -23,8 +23,8 @@ const fetchDisboardChannels = async (guildId) => {
 }
 
 /**
- * 
- * @param {string} guildId 
+ *
+ * @param {string} guildId
  */
 const deleteCache = async (guildId) => {
 	await disboardSchema.findOneAndDelete({ _id: guildId })
@@ -37,9 +37,9 @@ const deleteCache = async (guildId) => {
 }
 
 /**
- * 
- * @param {Client} client 
- * @param {Array} bumps 
+ *
+ * @param {Client} client
+ * @param {Array} bumps
  */
 const loadBumps = async (client, bumps) => {
 	for (let i = 0; i < bumps.length; i++) {
@@ -54,8 +54,8 @@ const loadBumps = async (client, bumps) => {
 }
 
 /**
- * 
- * @param {Client} client 
+ *
+ * @param {Client} client
  */
 module.exports = async (client) => {
 	fetchDisboardChannels().then(async () => {
@@ -70,7 +70,7 @@ module.exports = async (client) => {
 		const { guild, embeds, author } = message
 
 		const cache = disboardCache[guild.id]
-		if (author.id === '302050872383242240' && embeds[0].description.includes('Bump done!') && disboardCache[guild.id]) {
+		if (author.id === "302050872383242240" && embeds[0].description.includes("Bump done!") && disboardCache[guild.id]) {
 			const bumpTime = new Date(Date.now() + (1000 * 60 * 60 * 2))
 			await bumpsSchema.findOneAndUpdate({
 				_id: guild.id
@@ -91,8 +91,8 @@ module.exports = async (client) => {
 	})
 
 	client.on(Events.InteractionCreate, async (interaction) => {
-		if (!(interaction.isModalSubmit() && interaction.customId.startsWith('set-disboard'))) return
-		content = interaction.fields.getTextInputValue('set-disboard-message')
+		if (!(interaction.isModalSubmit() && interaction.customId.startsWith("set-disboard"))) return
+		const content = interaction.fields.getTextInputValue("set-disboard-message")
 
 		const { id: _id } = interaction.guild
 		const channelId = interaction.customId.split(" ")[1]

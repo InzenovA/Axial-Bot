@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require("mongoose")
 
 const moderatorRoleSchema = Schema({
 	_id: {
@@ -11,4 +11,4 @@ const moderatorRoleSchema = Schema({
 	}
 })
 
-module.exports = model('moderator-roles', moderatorRoleSchema)
+module.exports = model("moderator-roles", moderatorRoleSchema)

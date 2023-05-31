@@ -1,28 +1,28 @@
-const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild, GuildMember, EmbedBuilder } = require('discord.js')
+const { PermissionsBitField, ApplicationCommandOptionType, ChatInputCommandInteraction, Guild, GuildMember, EmbedBuilder } = require("discord.js")
 
-const modlogsSchema = require('../../schemas/modlogs-schema')
-const { moderatorCheck } = require('../../modules/moderation')
+const modlogsSchema = require("../../schemas/modlogs-schema")
+const { moderatorCheck } = require("../../modules/moderation")
 
 module.exports = {
-	name: 'kick',
-	description: 'Kick a member from the server.',
-	category: 'Moderation',
-	expectedArgs: '<user> [reason]',
+	name: "kick",
+	description: "Kick a member from the server.",
+	category: "Moderation",
+	expectedArgs: "<user> [reason]",
 	defaultMemberPermissions: PermissionsBitField.Flags.KickMembers,
 	botPermissions: [PermissionsBitField.Flags.KickMembers],
 	dm_permission: false,
 	options: [{
-		name: 'user',
-		description: 'The user to kick',
+		name: "user",
+		description: "The user to kick",
 		type: ApplicationCommandOptionType.User,
 		required: true
 	}, {
-		name: 'reason',
-		description: 'The reason for the kick',
-		type: ApplicationCommandOptionType.String,
+		name: "reason",
+		description: "The reason for the kick",
+		type: ApplicationCommandOptionType.String
 	}],
 	/**
-	 * 
+	 *
 	 * @param {{
 	 * 	interaction: ChatInputCommandInteraction,
 	 * 	guild: Guild,
@@ -30,8 +30,8 @@ module.exports = {
 	 * }}
 	 */
 	callback: async ({ interaction, guild, member }) => {
-		const user = interaction.options.getUser('user')
-		const reason = interaction.options.getString('reason')
+		const user = interaction.options.getUser("user")
+		const reason = interaction.options.getString("reason")
 		const target = await guild.members.fetch(user)
 
 		const embed = new EmbedBuilder()
@@ -64,7 +64,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch(err => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
 
 		const responseEmbed = new EmbedBuilder()
 			.setDescription(responseMessage)

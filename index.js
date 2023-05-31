@@ -1,14 +1,14 @@
-require('dotenv').config()
-const { readdirSync } = require('fs')
+require("dotenv").config()
+const { readdirSync } = require("fs")
 
-process.on('unhandledRejection', (reason) => {
+process.on("unhandledRejection", (reason) => {
 	console.log(reason)
 })
-process.on('uncaughtException', (err) => {
+process.on("uncaughtException", (err) => {
 	console.log(err)
 })
 
-const { Client, GatewayIntentBits, Partials, PresenceUpdateStatus, ActivityType, Collection } = require('discord.js')
+const { Client, GatewayIntentBits, Partials, PresenceUpdateStatus, ActivityType, Collection } = require("discord.js")
 const client = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
@@ -25,7 +25,7 @@ const client = new Client({
 		status: PresenceUpdateStatus.Online,
 		afk: false,
 		activity: {
-			name: '/help',
+			name: "/help",
 			type: ActivityType.Playing
 		}
 	}
@@ -33,9 +33,9 @@ const client = new Client({
 
 client.commands = new Collection()
 client.commandCategories = {}
-client.testGuilds = ['600750065786683392', '787294199090380840']
+client.testGuilds = ["600750065786683392", "787294199090380840"]
 
-const handlerFiles = readdirSync('./handlers').filter(file => file.endsWith('.js'))
+const handlerFiles = readdirSync("./handlers").filter(file => file.endsWith(".js"))
 for (const file of handlerFiles) {
 	require(`./handlers/${file}`)(client)
 }

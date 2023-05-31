@@ -1,12 +1,12 @@
-const { Client } = require('discord.js')
-const { readdirSync } = require('fs')
+const { Client } = require("discord.js")
+const { readdirSync } = require("fs")
 
 /**
- * 
- * @param {Client} client 
+ *
+ * @param {Client} client
  */
 module.exports = (client) => {
-	const featureFiles = readdirSync('./modules').filter(file => file.endsWith('.js'))
+	const featureFiles = readdirSync("./modules").filter(file => file.endsWith(".js"))
 
 	for (const file of featureFiles) {
 		require(`../modules/${file}`)(client)

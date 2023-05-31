@@ -1,15 +1,15 @@
-const { ApplicationCommandType, UserContextMenuCommandInteraction, GuildMember, EmbedBuilder } = require('discord.js')
+const { ApplicationCommandType, UserContextMenuCommandInteraction, GuildMember, EmbedBuilder } = require("discord.js")
 
 module.exports = {
-	name: 'Guild Avatar',
-	category: 'Context Menu',
+	name: "Guild Avatar",
+	category: "Context Menu",
 	type: ApplicationCommandType.User,
 	dmPermission: false,
 	/**
-	 * 
+	 *
 	 * @param {{
-	 * 	interaction: UserContextMenuCommandInteraction, 
-	 * 	targetMember: GuildMember 
+	 * 	interaction: UserContextMenuCommandInteraction,
+	 * 	targetMember: GuildMember
 	 * }}
 	 */
 	callback: ({ interaction, targetMember }) => {

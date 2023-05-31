@@ -1,0 +1,50 @@
+{
+	"env": {
+		"commonjs": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": "eslint:recommended",
+	"overrides": [
+	],
+	"parserOptions": {
+		"ecmaVersion": "latest"
+	},
+	"rules": {
+		"arrow-parens": [
+			"error",
+			"as-needed",
+			{ "requireForBlockBody": true }
+		],
+		"arrow-spacing": "error",
+		"block-spacing": "error",
+		"brace-style": [
+			"error",
+			"1tbs",
+			{ "allowSingleLine": true }
+		],
+		"comma-dangle": [
+			"error",
+			"never"
+		],
+		"comma-spacing": "error",
+		"indent": [
+			"error",
+			"tab"
+		],
+		"key-spacing": "error",
+		"keyword-spacing": "error",
+		"line-comment-position": "error",
+		"linebreak-style": [
+			"error",
+			"windows"
+		],
+		"no-trailing-spaces": "error",
+		"no-unused-vars": "off",
+		"quotes": "error",
+		"semi": [
+			"error",
+			"never"
+		]
+	}
+}
