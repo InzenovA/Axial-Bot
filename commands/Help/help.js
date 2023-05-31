@@ -6,7 +6,6 @@ const {
 	PermissionsBitField
 } = require("discord.js")
 
-
 const { getCommandId, addCommandToEmbed, components, emojis } = require("../../modules/help-module")
 
 module.exports = {
