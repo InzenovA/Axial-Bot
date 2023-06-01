@@ -151,24 +151,24 @@ module.exports = (client) => {
 			delete interaction.message.embeds[0].data.footer
 
 			switch (interaction.customId) {
-			case "help-menu-start":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, 1, lastPage) })
-				break
-			case "help-menu-previous":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage - 1)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage - 1, lastPage) })
-				break
-			case "help-menu-next":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage + 1)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage + 1, lastPage) })
-				break
-			case "help-menu-end":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, lastPage)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, lastPage, lastPage) })
-				break
-			default:
-				return
+				case "help-menu-start":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, 1, lastPage) })
+					break
+				case "help-menu-previous":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage - 1)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage - 1, lastPage) })
+					break
+				case "help-menu-next":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage + 1)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage + 1, lastPage) })
+					break
+				case "help-menu-end":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, lastPage)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, lastPage, lastPage) })
+					break
+				default:
+					return
 			}
 		}
 	})

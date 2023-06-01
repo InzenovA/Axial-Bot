@@ -1,4 +1,12 @@
-const { Client, Events } = require("discord.js")
+const {
+	Client,
+	Events,
+	PermissionsBitField,
+	ActionRowBuilder,
+	ModalBuilder,
+	TextInputBuilder,
+	TextInputStyle
+} = require("discord.js")
 const schedule = require("node-schedule")
 const disboardSchema = require("../schemas/disboard-schema")
 const bumpsSchema = require("../schemas/bumps-schema")
@@ -91,27 +99,83 @@ module.exports = async (client) => {
 	})
 
 	client.on(Events.InteractionCreate, async (interaction) => {
-		if (!(interaction.isModalSubmit() && interaction.customId.startsWith("set-disboard"))) return
-		const content = interaction.fields.getTextInputValue("set-disboard-message")
+		if (!(interaction.isModalSubmit() || interaction.isChannelSelectMenu() || interaction.isButton())) return
+		if (!interaction.customId.startsWith("set-disboard")) return
 
-		const { id: _id } = interaction.guild
-		const channelId = interaction.customId.split(" ")[1]
-
-		await disboardSchema.findOneAndUpdate({
-			_id
-		}, {
-			_id,
-			channelId,
-			content
-		}, {
-			upsert: true
-		})
-
-		fetchDisboardChannels(_id).then(async () => {
-			await interaction.reply({
-				content: `The Disboard reminder channel has been bound to <#${channelId}>.\n**NOTE:** The new message and channel location will take effect in the next bump.`
+		if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
+			return interaction.reply({
+				content: "Only server managers can modify the Disboard module settings.",
+				ephemeral: true
 			})
-		})
+		}
+
+		if (interaction.isModalSubmit()) {
+			const content = interaction.fields.getTextInputValue("set-disboard-message")
+
+			const { id: _id } = interaction.guild
+			const channelId = interaction.customId.split(" ")[1]
+
+			await disboardSchema.findOneAndUpdate({
+				_id
+			}, {
+				_id,
+				channelId,
+				content
+			}, {
+				upsert: true
+			})
+
+			fetchDisboardChannels(_id).then(() => {
+				interaction.reply({
+					content: `The Disboard reminder channel has been bound to <#${channelId}>.\n**NOTE:** The new message and channel location will take effect in the next bump.`
+				})
+			})
+		} else if (interaction.isChannelSelectMenu()) {
+			const query = await disboardSchema.findOne({ _id: interaction.guild.id })
+
+			if (!query) {
+				return interaction.reply({
+					content: "This server does not have the Disboard module set up.",
+					ephemeral: true
+				})
+			}
+
+			const channelId = interaction.values[0]
+			await disboardSchema.findOneAndUpdate({
+				_id: interaction.guild.id
+			}, {
+				channelId
+			})
+
+			interaction.reply({
+				content: `Successfully edited the Disboard reminder channel to <#${channelId}>.\n**NOTE:** The new channel location will take effect in the next bump.`
+			})
+		} else if (interaction.isButton()) {
+			const query = await disboardSchema.findOne({ _id: interaction.guild.id })
+
+			if (!query) {
+				return interaction.reply({
+					content: "This server does not have the Disboard module set up.",
+					ephemeral: true
+				})
+			}
+
+			const modal = new ModalBuilder()
+				.setTitle("Change Disboard Reminder Message")
+				.setCustomId(`set-disboard ${query.channelId}`)
+
+			const text = new TextInputBuilder()
+				.setLabel("Message")
+				.setPlaceholder("Input the reminder message to be sent")
+				.setCustomId("set-disboard-message")
+				.setStyle(TextInputStyle.Paragraph)
+				.setRequired(true)
+
+			const actionRow = new ActionRowBuilder().addComponents(text)
+			modal.addComponents(actionRow)
+
+			await interaction.showModal(modal)
+		}
 	})
 }
 

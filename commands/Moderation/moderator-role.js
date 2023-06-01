@@ -48,78 +48,78 @@ module.exports = {
 		const embed = new EmbedBuilder()
 
 		switch (command) {
-		case "add":
-			if (query ? query.length > 0 : false) {
-				const roleId = query.roleId
+			case "add":
+				if (query ? query.length > 0 : false) {
+					const roleId = query.roleId
 
-				if (roleId.includes(modRole.id)) {
-					embed.setDescription(`❌ The role <@&${modRole.id}> has already been added as a moderator role.`).setColor(0xff0000)
-					return interaction.reply({ embeds: [embed] })
+					if (roleId.includes(modRole.id)) {
+						embed.setDescription(`❌ The role <@&${modRole.id}> has already been added as a moderator role.`).setColor(0xff0000)
+						return interaction.reply({ embeds: [embed] })
+					}
 				}
-			}
 
-			await moderatorRole.findOneAndUpdate({
-				_id: guild.id
-			}, {
-				_id: guild.id,
-				$push: {
-					roleId: modRole.id
-				}
-			}, {
-				upsert: true
-			})
-
-			embed.setDescription(`✅ The role <@&${modRole.id}> has now been added as a moderator role.`).setColor(0x00ff00)
-			interaction.reply({ embeds: [embed] })
-			break
-		case "remove":
-			if (query ? query.length <= 0 : true) {
-				embed.setDescription("❌ There are no roles set as a moderator role in this server.").setColor(0xff0000)
-				return interaction.reply({ embeds: [embed] })
-			}
-
-			var roleId = query.roleId
-			if (!roleId.includes(modRole.id)) {
-				embed.setDescription(`❌ The role <@&${modRole.id}> is not already included as a moderator role.`).setColor(0xff0000)
-				return interaction.reply({ embeds: [embed] })
-			}
-
-			roleId.pop(modRole.id)
-
-			if (roleId.length == 0) await moderatorRole.findOneAndDelete({ _id: guild.id })
-			else {
 				await moderatorRole.findOneAndUpdate({
 					_id: guild.id
 				}, {
 					_id: guild.id,
-					roleId
+					$push: {
+						roleId: modRole.id
+					}
 				}, {
 					upsert: true
 				})
-			}
 
-			embed.setDescription(`✅ The role <@&${modRole.id}> has now been removed from the moderator roles.`).setColor(0x00ff00)
+				embed.setDescription(`✅ The role <@&${modRole.id}> has now been added as a moderator role.`).setColor(0x00ff00)
+				interaction.reply({ embeds: [embed] })
+				break
+			case "remove":
+				if (query ? query.length <= 0 : true) {
+					embed.setDescription("❌ There are no roles set as a moderator role in this server.").setColor(0xff0000)
+					return interaction.reply({ embeds: [embed] })
+				}
 
-			interaction.reply({ embeds: [embed] })
-			break
-		case "list":
-			if (query ? query.length <= 0 : true) {
-				embed
-					.setDescription("❌ There are no roles set as a moderator role in this server.")
-					.setColor(0xff0000)
-				return interaction.reply({ embeds: [embed] })
-			}
+				var roleId = query.roleId
+				if (!roleId.includes(modRole.id)) {
+					embed.setDescription(`❌ The role <@&${modRole.id}> is not already included as a moderator role.`).setColor(0xff0000)
+					return interaction.reply({ embeds: [embed] })
+				}
 
-			roleId = query.roleId
+				roleId.pop(modRole.id)
 
-			var roles = ""
-			for (const role in roleId) {
-				roles += `<@&${roleId[role]}>, `
-			}
-			roles = roles.slice(0, -2)
+				if (roleId.length == 0) await moderatorRole.findOneAndDelete({ _id: guild.id })
+				else {
+					await moderatorRole.findOneAndUpdate({
+						_id: guild.id
+					}, {
+						_id: guild.id,
+						roleId
+					}, {
+						upsert: true
+					})
+				}
 
-			embed.setTitle("List of moderator roles").setDescription(roles).setColor(0x40C0E7)
-			interaction.reply({ embeds: [embed] })
+				embed.setDescription(`✅ The role <@&${modRole.id}> has now been removed from the moderator roles.`).setColor(0x00ff00)
+
+				interaction.reply({ embeds: [embed] })
+				break
+			case "list":
+				if (query ? query.length <= 0 : true) {
+					embed
+						.setDescription("❌ There are no roles set as a moderator role in this server.")
+						.setColor(0xff0000)
+					return interaction.reply({ embeds: [embed] })
+				}
+
+				roleId = query.roleId
+
+				var roles = ""
+				for (const role in roleId) {
+					roles += `<@&${roleId[role]}>, `
+				}
+				roles = roles.slice(0, -2)
+
+				embed.setTitle("List of moderator roles").setDescription(roles).setColor(0x40C0E7)
+				interaction.reply({ embeds: [embed] })
 		}
 	}
 }
