@@ -5,8 +5,7 @@ const {
 	EmbedBuilder,
 	PermissionsBitField
 } = require("discord.js")
-
-const { getCommandId, addCommandToEmbed, components, emojis } = require("../../modules/help-module")
+const { getCommandId, addCommandToEmbed, components } = require("../../modules/help-module")
 
 module.exports = {
 	name: "help",
