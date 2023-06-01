@@ -12,7 +12,6 @@ module.exports = {
 		type: ApplicationCommandOptionType.Role,
 		required: true
 	}],
-	testOnly: true,
 	/**
 	 *
 	 * @param {{
