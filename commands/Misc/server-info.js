@@ -28,7 +28,7 @@ module.exports = {
 				value: description || "No description"
 			}, {
 				name: "Owner",
-				value: `<@${owner.id}>\n${owner.user.tag}`
+				value: `${owner.toString()}\n${owner.user.tag}`
 			}, {
 				name: "Members",
 				value: `👥 Total: ${memberCount}\n

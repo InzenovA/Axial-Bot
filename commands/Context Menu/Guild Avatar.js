@@ -15,7 +15,7 @@ module.exports = {
 	callback: ({ interaction, targetMember }) => {
 		if (!targetMember.avatar) {
 			interaction.reply({
-				content: `<@${targetMember.user.id}> does not have a server avatar.`,
+				content: `${targetMember.toString()} does not have a server avatar.`,
 				ephemeral: true,
 				allowedMentions: {
 					users: []
