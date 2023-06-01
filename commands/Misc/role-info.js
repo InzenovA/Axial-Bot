@@ -18,7 +18,9 @@ module.exports = {
 	 * 	interaction: ChatInputCommandInteraction,
 	 * }}
 	 */
-	callback: ({ interaction }) => {
+	callback: async ({ interaction, guild }) => {
+		await guild.members.fetch()
+
 		const role = interaction.options.getRole("role")
 		const { name, id, createdTimestamp, hexColor, members, position, mentionable } = role
 
