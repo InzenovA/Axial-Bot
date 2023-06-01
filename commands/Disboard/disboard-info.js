@@ -31,7 +31,10 @@ module.exports = {
 		const query = await disboardSchema.findOne({ _id: guild.id })
 
 		if (!query) {
-			return interaction.reply({ content: "This server does not have the Disboard module enabled." })
+			return interaction.reply({
+				content: "This server does not have the Disboard module enabled.",
+				ephemeral: true
+			})
 		}
 
 		const bump = await bumpsSchema.findOne({ _id: guild.id })
