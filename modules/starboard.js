@@ -60,6 +60,7 @@ module.exports = async (client) => {
 						name: "Message Link",
 						value: `[Jump to the message](${url})`
 					})
+					.setColor("Yellow")
 					.setTimestamp(createdTimestamp)
 					.setFooter({ text: id })
 				if (content) embed.setDescription(content)

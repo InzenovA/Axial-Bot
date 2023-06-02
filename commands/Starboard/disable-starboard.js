@@ -16,7 +16,7 @@ module.exports = {
 	 */
 	callback: async ({ interaction, guild }) => {
 		deleteCache(guild.id).then(() => {
-			interaction.reply({ content: "The Disboard reminders has been disabled." })
+			interaction.reply({ content: "The starboard module has been disabled." })
 		})
 	}
 }

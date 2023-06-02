@@ -42,9 +42,9 @@ module.exports = {
 
 		let status
 		if (!bumpTime) {
-			status = "not bumped yet"
+			status = "Not bumped yet."
 		} else {
-			status = `Bumped! Next bump <t:${Math.floor(new Date(bumpTime).getTime() / 1000)}:R>`
+			status = `Bumped!\nNext bump <t:${Math.floor(new Date(bumpTime).getTime() / 1000)}:R>`
 		}
 
 		const embed = new EmbedBuilder()
