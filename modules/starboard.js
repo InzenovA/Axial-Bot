@@ -22,7 +22,7 @@ const fetchStarboardChannels = async (guildId) => {
 
 /**
  *
- * @param {string} guildId
+ * @param {String} guildId
  */
 const deleteCache = async (guildId) => {
 	await starboardSchema.findOneAndDelete({ _id: guildId })

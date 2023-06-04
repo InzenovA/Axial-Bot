@@ -15,7 +15,7 @@ let disboardCache = {}
 
 /**
  *
- * @param {string} guildId
+ * @param {String} guildId
  */
 const fetchDisboardChannels = async (guildId) => {
 	let query = {}
@@ -32,7 +32,7 @@ const fetchDisboardChannels = async (guildId) => {
 
 /**
  *
- * @param {string} guildId
+ * @param {String} guildId
  */
 const deleteCache = async (guildId) => {
 	await disboardSchema.findOneAndDelete({ _id: guildId })
