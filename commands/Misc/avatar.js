@@ -35,7 +35,7 @@ module.exports = {
 		if (interaction.options.getString("type") == "Guild") {
 			if (!target.avatar) {
 				interaction.reply({
-					content: `<@${target.user.id}> does not have a server avatar`,
+					content: `${target.toString()} does not have a server avatar`,
 					ephemeral: true,
 					allowedMentions: {
 						users: []

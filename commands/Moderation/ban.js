@@ -51,7 +51,7 @@ module.exports = {
 
 		const isModerator = await moderatorCheck(target, guild)
 		if (isModerator) {
-			embed.setDescription("❌ | You cannot timeout other moderators.").setColor(0xff0000)
+			embed.setDescription("❌ | You cannot ban other moderators.").setColor(0xff0000)
 			return interaction.reply({ embeds: [embed], ephemeral: true })
 		}
 		if (target.user.bot) {

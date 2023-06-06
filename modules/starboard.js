@@ -22,7 +22,7 @@ const fetchStarboardChannels = async (guildId) => {
 
 /**
  *
- * @param {string} guildId
+ * @param {String} guildId
  */
 const deleteCache = async (guildId) => {
 	await starboardSchema.findOneAndDelete({ _id: guildId })
@@ -60,6 +60,7 @@ module.exports = async (client) => {
 						name: "Message Link",
 						value: `[Jump to the message](${url})`
 					})
+					.setColor("Yellow")
 					.setTimestamp(createdTimestamp)
 					.setFooter({ text: id })
 				if (content) embed.setDescription(content)

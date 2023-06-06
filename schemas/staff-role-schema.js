@@ -11,4 +11,4 @@ const moderatorRoleSchema = Schema({
 	}
 })
 
-module.exports = model("moderator-roles", moderatorRoleSchema)
+module.exports = model("staff-roles", moderatorRoleSchema)

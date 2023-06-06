@@ -23,7 +23,7 @@ const emojis = {
 /**
  *
  * @param {Client} client
- * @param {string} name
+ * @param {String} name
  * @returns
  */
 const getCommandId = (client, name) => {
@@ -37,8 +37,8 @@ const getCommandId = (client, name) => {
  *
  * @param {Client} client
  * @param {EmbedBuilder} embed
- * @param {number} page
- * @param {string} filter
+ * @param {Number} page
+ * @param {String} filter
  * @returns
  */
 const addCommandToEmbed = (client, embed, filter="All", page=1) => {
@@ -62,8 +62,8 @@ const addCommandToEmbed = (client, embed, filter="All", page=1) => {
 /**
  *
  * @param {Client} client
- * @param {number} currentPage
- * @param {number} lastPage
+ * @param {Number} currentPage
+ * @param {Number} lastPage
  * @returns
  */
 let components = (client, currentPage, lastPage) => {
@@ -151,24 +151,24 @@ module.exports = (client) => {
 			delete interaction.message.embeds[0].data.footer
 
 			switch (interaction.customId) {
-			case "help-menu-start":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, 1, lastPage) })
-				break
-			case "help-menu-previous":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage - 1)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage - 1, lastPage) })
-				break
-			case "help-menu-next":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage + 1)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage + 1, lastPage) })
-				break
-			case "help-menu-end":
-				newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, lastPage)
-				interaction.update({ embeds: [ newEmbed ], components: components(client, lastPage, lastPage) })
-				break
-			default:
-				return
+				case "help-menu-start":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, 1, lastPage) })
+					break
+				case "help-menu-previous":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage - 1)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage - 1, lastPage) })
+					break
+				case "help-menu-next":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, currentPage + 1)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, currentPage + 1, lastPage) })
+					break
+				case "help-menu-end":
+					newEmbed = addCommandToEmbed(client, newEmbed, currentCategory, lastPage)
+					interaction.update({ embeds: [ newEmbed ], components: components(client, lastPage, lastPage) })
+					break
+				default:
+					return
 			}
 		}
 	})

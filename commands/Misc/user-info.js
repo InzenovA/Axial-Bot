@@ -24,7 +24,7 @@ module.exports = {
 
 		const embed = new EmbedBuilder()
 			.setTitle("User Information")
-			.setDescription(`<@${user.id}>`)
+			.setDescription(user.toString())
 			.addFields({
 				name: "Member Name",
 				value: user.tag

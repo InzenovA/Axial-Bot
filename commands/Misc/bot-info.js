@@ -32,7 +32,7 @@ module.exports = {
 
 		const embed = new EmbedBuilder()
 			.setTitle(tag)
-			.setDescription(`<@${id}>`)
+			.setDescription(client.user.toString())
 			.addFields({
 				name: "Created",
 				value: `<t:${parseInt(createdTimestamp / 1000)}:F>`
