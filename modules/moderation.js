@@ -1,6 +1,6 @@
 const { Client, Guild, GuildMember, PermissionsBitField } = require("discord.js")
 const schedule = require("node-schedule")
-const roleSchema = require("../schemas/moderator-role-schema")
+const roleSchema = require("../schemas/staff-role-schema")
 const banSchema = require("../schemas/bans-schema")
 
 /**
