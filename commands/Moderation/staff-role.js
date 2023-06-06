@@ -107,7 +107,7 @@ module.exports = {
 					embed
 						.setDescription("❌ There are no roles set as a staff role in this server.")
 						.setColor(0xff0000)
-					return interaction.reply({ embeds: [embed] })
+					return interaction.reply({ embeds: [embed], ephemeral: true })
 				}
 
 				roleId = query.roleId
