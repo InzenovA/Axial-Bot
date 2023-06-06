@@ -13,8 +13,10 @@ module.exports = (value) => {
 	const y = d * 365
 
 	const split = value.match(/^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i)
-	let duration = parseInt(split[0])
-	let type = split[1]?.toLowerCase() || "s"
+	if (!split) return null
+
+	let duration = parseInt(split[1])
+	let type = split[2]?.toLowerCase() || "s"
 
 	switch (type) {
 		case "years":
