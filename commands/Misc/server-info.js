@@ -63,8 +63,6 @@ module.exports = {
 			.setColor(guild.members.me.roles.highest.hexColor)
 			.setFooter({ text: `ID: ${id}` })
 
-		interaction.reply({
-			embeds: [embed]
-		})
+		interaction.reply({ embeds: [embed] })
 	}
 }

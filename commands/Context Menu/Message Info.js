@@ -29,9 +29,6 @@ module.exports = {
 			})
 			.setTimestamp()
 
-		interaction.reply({
-			embeds: [embed],
-			ephemeral: true
-		})
+		interaction.reply({ embeds: [embed], ephemeral: true })
 	}
 }

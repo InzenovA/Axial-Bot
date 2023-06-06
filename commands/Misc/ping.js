@@ -26,9 +26,6 @@ module.exports = {
 			.setColor(0x23E90F)
 			.setTimestamp()
 
-		await interaction.editReply({
-			content: "Pong!",
-			embeds: [latency]
-		})
+		await interaction.editReply({ content: "Pong!", embeds: [latency] })
 	}
 }

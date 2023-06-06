@@ -55,13 +55,13 @@ module.exports = {
 		axios
 			.get(`https://www.reddit.com/r/${subreddit}/random/.json`)
 			.then((response) => {
-				let permalink = response.data[0].data.children[0].data.permalink
-				let memeUrl = `https://reddit.com${permalink}`
-				let memeImage = response.data[0].data.children[0].data.url
-				let memeTitle = response.data[0].data.children[0].data.title
-				let memeUpvotes = response.data[0].data.children[0].data.ups
-				let memeDownvotes = response.data[0].data.children[0].data.downs
-				let memeNumComments = response.data[0].data.children[0].data.num_comments
+				const permalink = response.data[0].data.children[0].data.permalink
+				const memeUrl = `https://reddit.com${permalink}`
+				const memeImage = response.data[0].data.children[0].data.url
+				const memeTitle = response.data[0].data.children[0].data.title
+				const memeUpvotes = response.data[0].data.children[0].data.ups
+				const memeDownvotes = response.data[0].data.children[0].data.downs
+				const memeNumComments = response.data[0].data.children[0].data.num_comments
 
 				const memeEmbed = new EmbedBuilder()
 					.setTitle(`${memeTitle}`)
@@ -69,9 +69,8 @@ module.exports = {
 					.setImage(memeImage)
 					.setColor("Random")
 					.setFooter({ text: `👍 ${memeUpvotes} | 👎 ${memeDownvotes} | 💬 ${memeNumComments}` })
-				interaction.reply({
-					embeds: [ memeEmbed ]
-				})
+
+				interaction.reply({ embeds: [ memeEmbed ] })
 			})
 	}
 }

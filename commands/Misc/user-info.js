@@ -41,8 +41,6 @@ module.exports = {
 			.setTimestamp()
 			.setColor(displayHexColor)
 
-		interaction.reply({
-			embeds: [embed]
-		})
+		interaction.reply({ embeds: [embed] })
 	}
 }

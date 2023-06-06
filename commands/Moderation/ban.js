@@ -76,6 +76,11 @@ module.exports = {
 				embed.setDescription("❌ | Provide a valid time format.")
 				return interaction.reply({ embeds: [embed], ephemeral: true })
 			}
+			if (unixDuration <= 0) {
+				embed.setDescription("❌ | Time must be greater than 0.")
+				return interaction.reply({ embeds: [embed], ephemeral: true })
+			}
+
 			const unixTime = parseInt(Date.now() / 1000 + unixDuration / 1000)
 			dmMessage += `\nUnban time: <t:${unixTime}:f> (<t:${unixTime}:R>)`
 		}
@@ -100,7 +105,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch(err => console.log(err))
 
 		embed.setDescription(responseMessage).setColor(0xff0000)
 

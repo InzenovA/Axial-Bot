@@ -54,8 +54,6 @@ module.exports = {
 			.setThumbnail(role.iconURL())
 			.setColor(hexColor)
 
-		interaction.reply({
-			embeds: [embed]
-		})
+		interaction.reply({ embeds: [embed] })
 	}
 }

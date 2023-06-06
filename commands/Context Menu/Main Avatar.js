@@ -17,9 +17,6 @@ module.exports = {
 			.setTitle(targetUser.tag)
 			.setImage(targetUser.displayAvatarURL({ size: 4096 }))
 
-		interaction.reply({
-			embeds: [embed],
-			ephemeral: true
-		})
+		interaction.reply({ embeds: [embed], ephemeral: true })
 	}
 }

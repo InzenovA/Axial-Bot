@@ -67,14 +67,16 @@ module.exports = {
 			embed.setDescription("❌ | Provide a valid time format.").setColor(0xff0000)
 			return interaction.reply({ embeds: [embed], ephemeral: true })
 		}
-		if (unixDuration === 0) {
+		if (unixDuration <= 0) {
 			target.timeout(null, reason)
+
 			embed.setDescription(`${target} (${target.user.tag}) has been unmuted`)
+
 			target.user.send({
 				embeds: [
 					new EmbedBuilder().setDescription(`You have been unmuted from **${guild.name}**`)
 				]
-			}).catch((err) => { console.log(err) })
+			}).catch(err => console.log(err))
 			return interaction.reply({ embeds: [embed] })
 		}
 		if ((unixDuration / 1000) > 2419200) {
@@ -93,7 +95,7 @@ module.exports = {
 		const dmEmbed = new EmbedBuilder()
 			.setDescription(dmMessage)
 			.setColor(0xff0000)
-		target.user.send({ embeds: [dmEmbed] }).catch((err) => { console.log(err) })
+		target.user.send({ embeds: [dmEmbed] }).catch(err => console.log(err))
 
 		const responseEmbed = new EmbedBuilder()
 			.setDescription(responseMessage)

@@ -32,34 +32,31 @@ module.exports = {
 	 */
 	callback: ({ interaction, member }) => {
 		const target = interaction.options.getMember("user") || member
+
 		if (interaction.options.getString("type") == "Guild") {
 			if (!target.avatar) {
-				interaction.reply({
+				return interaction.reply({
 					content: `${target.toString()} does not have a server avatar`,
 					ephemeral: true,
 					allowedMentions: {
 						users: []
 					}
 				})
-			} else {
-				const embed = new EmbedBuilder()
-					.setColor(0x000000)
-					.setTitle(target.user.tag)
-					.setImage(target.displayAvatarURL({ size: 4096 }))
-
-				interaction.reply({
-					embeds: [embed]
-				})
 			}
+
+			const embed = new EmbedBuilder()
+				.setColor(0x000000)
+				.setTitle(target.user.tag)
+				.setImage(target.displayAvatarURL({ size: 4096 }))
+
+			interaction.reply({ embeds: [embed] })
 		} else {
 			const embed = new EmbedBuilder()
 				.setColor(0x000000)
 				.setTitle(target.user.tag)
 				.setImage(target.user.displayAvatarURL({ size: 4096 }))
 
-			interaction.reply({
-				embeds: [embed]
-			})
+			interaction.reply({ embeds: [embed] })
 		}
 	}
 }

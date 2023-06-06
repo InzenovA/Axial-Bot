@@ -52,8 +52,6 @@ module.exports = {
 			.setTimestamp()
 			.setFooter({ text: `Bot ID: ${id}` })
 
-		interaction.reply({
-			embeds: [embed]
-		})
+		interaction.reply({ embeds: [embed] })
 	}
 }
